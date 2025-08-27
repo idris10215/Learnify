@@ -2,9 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import LoginNavbar from './components/LoginNavbar'; // New import
+import LoginNavbar from './components/LoginNavbar';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
+import StudentDashboard from './pages/dashboards/StudentdashBoard';
+import TeacherDashboard from './pages/dashboards/TeacherdashBoard';
 
 // A layout for main pages with the full Navbar and Footer
 const MainLayout = ({ children }) => (
@@ -31,6 +33,9 @@ const App = () => {
           <Route path="/" element={<MainLayout><LandingPage /></MainLayout>} />
           <Route path="/teacher-login" element={<AuthLayout><LoginPage role="Teacher" /></AuthLayout>} />
           <Route path="/student-login" element={<AuthLayout><LoginPage role="Student" /></AuthLayout>} />
+          {/* Add the new routes for the dashboards */}
+          <Route path="/student-dashboard" element={<StudentDashboard />} />
+          <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
         </Routes>
       </div>
     </BrowserRouter>

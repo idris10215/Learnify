@@ -1,6 +1,7 @@
 import React from 'react';
 import BenefitCard from '../cards/BenefitCard';
-import { Sparkles, BarChart } from 'lucide-react'; // Example of using Lucide icons
+import {    Users, UserRoundPen} from 'lucide-react'; // Example of using Lucide icons
+
 
 const BenefitsSection = () => (
     <section className="px-4 sm:px-6 py-20 bg-white">
@@ -10,10 +11,10 @@ const BenefitsSection = () => (
                 <p className="mt-4 text-lg text-gray-600">Unlock potential with tools designed for modern education.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <BenefitCard icon={<Sparkles size={30} className="text-yellow-500" />} title="For Students">
+                <BenefitCard icon={<Users size={30} className="text-yellow-500" />} title="For Students">
                     Master subjects faster with a curriculum that adapts to your personal learning style and pace.
                 </BenefitCard>
-                <BenefitCard icon={<BarChart size={30} className="text-green-500" />} title="For Teachers">
+                <BenefitCard icon={<UserRoundPen size={30} className="text-green-500" />} title="For Teachers">
                     Save hours on planning and get real-time insights into student progress to provide targeted support.
                 </BenefitCard>
             </div>
