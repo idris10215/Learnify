@@ -1,2 +1,29 @@
 @import "tailwindcss";
 
+
+body {
+  font-family: "Work Sans", sans-serif;
+}
+
+.palette1 {
+    background-color: #FFF9AF;
+}
+
+.palette2 {
+    background-color: #33A1E0;
+}
+
+.palette3 {
+    background-color: #1C6EA4;
+}
+
+.palette4 {
+    background-color: #154D71;
+}
+
+
+@tailwind utilities;
+
+.expand {
+    @apply transition duration-300 ease-in-out hover:scale-110;
+}

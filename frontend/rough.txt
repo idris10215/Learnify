@@ -1,0 +1,1167 @@
+// import React from 'react';
+
+// // --- Reusable UI Components ---
+
+// // Icon Components (Material-UI style SVGs)
+// const AutoStoriesIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#3B82F6" className="h-10 w-10">
+//     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 1l-5 5v11l5-4.5V1zM1 6v14.65c0 .25.23.45.47.39l2.53-.63V6H1zm11 .5c0-.28.22-.5.5-.5s.5.22.5.5v10c0 .28-.22-.5-.5-.5s-.5-.22-.5-.5v-10zM5 6v11.38l2.5-.63V6H5zm4.5 0c-.28 0-.5.22-.5.5v10c0 .28.22.5.5.5s.5-.22.5-.5v-10c0-.28-.22-.5-.5-.5z"/>
+//   </svg>
+// );
+
+// const PsychologyIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#22C55E" className="h-10 w-10">
+//     <g><rect fill="none" height="24" width="24"/></g><g><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12,6c-1.66,0-3,1.34-3,3s1.34,3,3,3s3-1.34,3-3S13.66,6,12,6z M18,16.5c0-1.5-3-2.5-6-2.5s-6,1-6,2.5V18h12 V16.5z"/></g>
+//   </svg>
+// );
+
+// const TrendingUpIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#EF4444" className="h-10 w-10">
+//     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
+//   </svg>
+// );
+
+// // Button Component (with 3D hover effect)
+// const Button = ({ children, className = '', ...props }) => {
+//   return (
+//     <div className="group relative cursor-pointer w-full sm:w-auto">
+//       <div className="absolute inset-0 bg-black rounded-lg transform transition-transform duration-200 group-hover:translate-x-1 group-hover:translate-y-1"></div>
+//       <button
+//         className={`relative bg-white w-full sm:w-auto px-6 py-3 border-2 border-black rounded-lg font-bold transition duration-200 group-hover:-translate-x-1 group-hover:-translate-y-1 ${className}`}
+//         {...props}
+//       >
+//         {children}
+//       </button>
+//     </div>
+//   );
+// };
+
+// // Logo Component (New Minimalist Design)
+// const Logo = () => {
+//     return (
+//         <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-wide">
+//           Learnify<span className="text-yellow-400">.</span>
+//         </h1>
+//     );
+// }
+
+// // How It Works Card Component (3D Style)
+// const HowItWorksCard = ({ icon, title, children }) => {
+//   return (
+//     <div className="group relative cursor-pointer h-full">
+//       <div className="absolute inset-0 bg-black rounded-2xl transform transition-transform duration-200 group-hover:translate-x-1 group-hover:translate-y-1"></div>
+//       <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl transition duration-200 group-hover:-translate-x-1 group-hover:-translate-y-1 h-full flex flex-col items-center text-center">
+//         {icon}
+//         <h4 className="font-bold text-2xl mt-4">{title}</h4>
+//         <p className="text-gray-700 mt-2 text-base flex-grow">
+//           {children}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Footer Component
+// const Footer = () => {
+//   return (
+//     <footer className="text-center py-6 bg-gray-800 text-white">
+//       &copy; {new Date().getFullYear()} Learnify. All rights reserved.
+//     </footer>
+//   );
+// };
+
+
+// // --- Main Landing Page Component ---
+// export default function LandingPage() {
+//   return (
+//     <div className="bg-gray-50 text-gray-900 font-sans">
+      
+//       {/* Hero Section */}
+//       <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-24 bg-blue-500">
+//         <div className="max-w-4xl flex flex-col items-center">
+          
+//           <Logo />
+
+//           <div className="bg-black p-6 rounded-lg mt-8 w-full">
+//             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+//               Your Personalized Learning Path, Powered by AI
+//             </h2>
+//           </div>
+
+//           <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center w-full max-w-xs sm:max-w-none">
+//             <Button>Login as Teacher</Button>
+//             <Button>Login as Student</Button>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* "How It Works" Section */}
+//       <section className="px-4 sm:px-6 py-20 sm:py-24 bg-[#1C6EA4]">
+//         <div className="max-w-6xl mx-auto">
+//             <h3 className="text-3xl sm:text-4xl font-bold mb-12 sm:mb-16 text-center text-white">How It Works</h3>
+//             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              
+//               <HowItWorksCard icon={<AutoStoriesIcon />} title="Create Path">
+//                 Teachers design structured learning paths with resources, quizzes, and AI-generated content.
+//               </HowItWorksCard>
+              
+//               <HowItWorksCard icon={<PsychologyIcon />} title="Learn">
+//                 Students follow personalized paths with interactive content and AI-powered assistance.
+//               </HowItWorksCard>
+
+//               <HowItWorksCard icon={<TrendingUpIcon />} title="Track Progress">
+//                 Advanced analytics provide insights into learning progress and engagement patterns.
+//               </HowItWorksCard>
+
+//             </div>
+//         </div>
+//       </section>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+
+
+// import React from 'react';
+
+// // --- Reusable UI Components ---
+
+// // Icon Components (Material-UI style SVGs)
+// const AutoStoriesIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#3B82F6" className="h-10 w-10">
+//     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 1l-5 5v11l5-4.5V1zM1 6v14.65c0 .25.23.45.47.39l2.53-.63V6H1zm11 .5c0-.28.22-.5.5-.5s.5.22.5.5v10c0 .28-.22-.5-.5-.5s-.5-.22-.5-.5v-10zM5 6v11.38l2.5-.63V6H5zm4.5 0c-.28 0-.5.22-.5.5v10c0 .28.22.5.5.5s.5-.22-.5-.5v-10c0-.28-.22-.5-.5-.5z"/>
+//   </svg>
+// );
+
+// const PsychologyIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#22C55E" className="h-10 w-10">
+//     <g><rect fill="none" height="24" width="24"/></g><g><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12,6c-1.66,0-3,1.34-3,3s1.34,3,3,3s3-1.34,3-3S13.66,6,12,6z M18,16.5c0-1.5-3-2.5-6-2.5s-6,1-6,2.5V18h12 V16.5z"/></g>
+//   </svg>
+// );
+
+// const TrendingUpIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#EF4444" className="h-10 w-10">
+//     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
+//   </svg>
+// );
+
+// // Button Component (with new 3D hover effect)
+// const Button = ({ children, className = '', ...props }) => {
+//   return (
+//     <div className="group relative cursor-pointer w-full sm:w-auto">
+//       {/* Shadow layer that grows on hover */}
+//       <div className="absolute inset-0 bg-black rounded-lg transform translate-x-0.5 translate-y-0.5 transition-transform duration-200 group-hover:translate-x-1.5 group-hover:translate-y-1.5"></div>
+//       {/* Main button content */}
+//       <button
+//         className={`relative bg-white w-full sm:w-auto px-6 py-3 border-2 border-black rounded-lg font-bold ${className}`}
+//         {...props}
+//       >
+//         {children}
+//       </button>
+//     </div>
+//   );
+// };
+
+// // Logo Component (New Minimalist Design)
+// const Logo = () => {
+//     return (
+//         <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-wide">
+//           Learnify<span className="text-yellow-400">.</span>
+//         </h1>
+//     );
+// }
+
+// // How It Works Card Component (with new 3D hover effect)
+// const HowItWorksCard = ({ icon, title, children }) => {
+//   return (
+//     <div className="group relative cursor-pointer h-full">
+//       {/* Shadow layer that grows on hover */}
+//       <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-0.5 translate-y-0.5 transition-transform duration-200 group-hover:translate-x-1.5 group-hover:translate-y-1.5"></div>
+//       {/* Main card content */}
+//       <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl h-full flex flex-col items-center text-center">
+//         {icon}
+//         <h4 className="font-bold text-2xl mt-4">{title}</h4>
+//         <p className="text-gray-700 mt-2 text-base flex-grow">
+//           {children}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Footer Component
+// const Footer = () => {
+//   return (
+//     <footer className="text-center py-6 bg-gray-800 text-white">
+//       &copy; {new Date().getFullYear()} Learnify. All rights reserved.
+//     </footer>
+//   );
+// };
+
+
+// // --- Main Landing Page Component ---
+// export default function LandingPage() {
+//   return (
+//     <div className="bg-gray-50 text-gray-900 font-sans">
+      
+//       {/* Hero Section */}
+//       <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-24 bg-blue-500">
+//         <div className="max-w-4xl flex flex-col items-center">
+          
+//           <Logo />
+
+//           <div className="bg-black p-6 rounded-lg mt-8 w-full">
+//             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+//               Your Personalized Learning Path, Powered by AI
+//             </h2>
+//           </div>
+
+//           <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center w-full max-w-xs sm:max-w-none">
+//             <Button>Login as Teacher</Button>
+//             <Button>Login as Student</Button>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* "How It Works" Section */}
+//       <section className="px-4 sm:px-6 py-20 sm:py-24 bg-white">
+//         <div className="max-w-6xl mx-auto">
+//             <h3 className="text-3xl sm:text-4xl font-bold mb-12 sm:mb-16 text-center text-gray-800">How It Works</h3>
+//             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              
+//               <HowItWorksCard icon={<AutoStoriesIcon />} title="Create Path">
+//                 Teachers design structured learning paths with resources, quizzes, and AI-generated content.
+//               </HowItWorksCard>
+              
+//               <HowItWorksCard icon={<PsychologyIcon />} title="Learn">
+//                 Students follow personalized paths with interactive content and AI-powered assistance.
+//               </HowItWorksCard>
+
+//               <HowItWorksCard icon={<TrendingUpIcon />} title="Track Progress">
+//                 Advanced analytics provide insights into learning progress and engagement patterns.
+//               </HowItWorksCard>
+
+//             </div>
+//         </div>
+//       </section>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+// import React from 'react';
+
+// // --- Reusable UI Components ---
+
+// // Icon Components (Material-UI style SVGs)
+// const AutoStoriesIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#3B82F6" className="h-10 w-10">
+//     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 1l-5 5v11l5-4.5V1zM1 6v14.65c0 .25.23.45.47.39l2.53-.63V6H1zm11 .5c0-.28.22-.5.5-.5s.5.22.5.5v10c0 .28-.22-.5-.5-.5s-.5-.22-.5-.5v-10zM5 6v11.38l2.5-.63V6H5zm4.5 0c-.28 0-.5.22-.5.5v10c0 .28.22.5.5.5s.5-.22-.5-.5v-10c0-.28-.22-.5-.5-.5z"/>
+//   </svg>
+// );
+
+// const PsychologyIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#22C55E" className="h-10 w-10">
+//     <g><rect fill="none" height="24" width="24"/></g><g><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12,6c-1.66,0-3,1.34-3,3s1.34,3,3,3s3-1.34,3-3S13.66,6,12,6z M18,16.5c0-1.5-3-2.5-6-2.5s-6,1-6,2.5V18h12 V16.5z"/></g>
+//   </svg>
+// );
+
+// const TrendingUpIcon = () => (
+//   <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#EF4444" className="h-10 w-10">
+//     <path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
+//   </svg>
+// );
+
+// // Button Component (Normal with 3D hover effect)
+// const Button = ({ children, className = '', ...props }) => {
+//   return (
+//     <button
+//       className={`bg-white w-full sm:w-auto px-6 py-3 border-2 border-black rounded-lg font-bold transition-all duration-200 hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 ${className}`}
+//       {...props}
+//     >
+//       {children}
+//     </button>
+//   );
+// };
+
+// // Logo Component (New Minimalist Design)
+// const Logo = () => {
+//     return (
+//         <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-wide">
+//           Learnify<span className="text-yellow-400">.</span>
+//         </h1>
+//     );
+// }
+
+// // How It Works Card Component (Static 3D effect, no hover)
+// const HowItWorksCard = ({ icon, title, children }) => {
+//   return (
+//     <div className="relative h-full">
+//       {/* Background shadow layer */}
+//       <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//       {/* Main card content */}
+//       <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl h-full flex flex-col items-center text-center">
+//         {icon}
+//         <h4 className="font-bold text-2xl mt-4">{title}</h4>
+//         <p className="text-gray-700 mt-2 text-base flex-grow">
+//           {children}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Footer Component
+// const Footer = () => {
+//   return (
+//     <footer className="text-center py-6 bg-gray-800 text-white">
+//       &copy; {new Date().getFullYear()} Learnify. All rights reserved.
+//     </footer>
+//   );
+// };
+
+
+// // --- Main Landing Page Component ---
+// export default function LandingPage() {
+//   return (
+//     <div className="bg-gray-50 text-gray-900 font-sans">
+      
+//       {/* Hero Section */}
+//       <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-24 bg-blue-500">
+//         <div className="max-w-4xl flex flex-col items-center">
+          
+//           <Logo />
+
+//           <div className="bg-black p-6 rounded-lg mt-8 w-full">
+//             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+//               Your Personalized Learning Path, Powered by AI
+//             </h2>
+//           </div>
+
+//           <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center w-full max-w-xs sm:max-w-none">
+//             <Button>Login as Teacher</Button>
+//             <Button>Login as Student</Button>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* "How It Works" Section */}
+//       <section className="px-4 sm:px-6 py-20 sm:py-24 bg-white">
+//         <div className="max-w-6xl mx-auto">
+//             <h3 className="text-3xl sm:text-4xl font-bold mb-12 sm:mb-16 text-center text-gray-800">How It Works</h3>
+//             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              
+//               <HowItWorksCard icon={<AutoStoriesIcon />} title="Create Path">
+//                 Teachers design structured learning paths with resources, quizzes, and AI-generated content.
+//               </HowItWorksCard>
+              
+//               <HowItWorksCard icon={<PsychologyIcon />} title="Learn">
+//                 Students follow personalized paths with interactive content and AI-powered assistance.
+//               </HowItWorksCard>
+
+//               <HowItWorksCard icon={<TrendingUpIcon />} title="Track Progress">
+//                 Advanced analytics provide insights into learning progress and engagement patterns.
+//               </HowItWorksCard>
+
+//             </div>
+//         </div>
+//       </section>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+
+// // --- SVG Icon Components ---
+// const SparklesIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m1-12a9 9 0 011.666 3.033m-1.666-3.033a9 9 0 00-1.666 3.033m1.666-3.033h.008v.008h-.008v-.008zm-3.332 0h.008v.008h-.008v-.008zm-3.332 0h.008v.008h-.008v-.008zm1.666 11.334a9 9 0 01-1.666-3.033m1.666 3.033a9 9 0 001.666-3.033m-1.666 3.033h.008v.008h-.008v-.008zm3.332 0h.008v.008h-.008v-.008zm3.332 0h.008v.008h-.008v-.008z" />
+//     </svg>
+// );
+
+// const ChartBarIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+//     </svg>
+// );
+
+// // --- Reusable UI Components ---
+
+// const Navbar = () => (
+//     <header className="bg-white/90 backdrop-blur-md sticky top-0 z-10 border-b border-gray-200">
+//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//             <div className="flex items-center justify-between h-16">
+//                 <h1 className="text-3xl font-bold text-gray-800">
+//                   Learnify<span className="text-blue-500">.</span>
+//                 </h1>
+//                 <div className="flex items-center space-x-4">
+//                     <a href="#" className="text-gray-600 hover:text-blue-500 font-medium transition-colors">Login</a>
+//                     <Button>Sign Up</Button>
+//                 </div>
+//             </div>
+//         </div>
+//     </header>
+// );
+
+// const Button = ({ children, className = '' }) => {
+//   return (
+//     <button
+//       className={`bg-white w-full sm:w-auto px-6 py-3 border-2 border-black rounded-lg font-bold transition-all duration-200 hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 ${className}`}
+//     >
+//       {children}
+//     </button>
+//   );
+// };
+
+// const HowItWorksCard = ({ icon, title, children }) => {
+//     return (
+//       <div className="relative h-full">
+//         <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//         <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl h-full flex flex-col items-center text-center">
+//           {icon}
+//           <h4 className="font-bold text-2xl mt-4">{title}</h4>
+//           <p className="text-gray-700 mt-2 text-base flex-grow">
+//             {children}
+//           </p>
+//         </div>
+//       </div>
+//     );
+// };
+
+// const BenefitCard = ({ icon, title, children }) => {
+//     return (
+//       <div className="relative h-full">
+//         <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//         <div className="relative bg-white text-black p-6 border-2 border-black rounded-2xl h-full flex items-start space-x-4">
+//           <div className="flex-shrink-0 bg-gray-100 rounded-full p-3">
+//               {icon}
+//           </div>
+//           <div>
+//               <h3 className="text-xl font-bold text-gray-900">{title}</h3>
+//               <p className="mt-1 text-gray-600">{children}</p>
+//           </div>
+//         </div>
+//       </div>
+//     );
+// };
+
+// const TestimonialCard = ({ quote, author, role }) => (
+//     <div className="relative h-full">
+//       <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//       <div className="relative bg-black text-white p-8 border-2 border-yellow-400 rounded-2xl h-full">
+//         <p className="italic">"{quote}"</p>
+//         <div className="mt-6 flex items-center">
+//             <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center font-bold text-black">
+//                 {author.charAt(0)}
+//             </div>
+//             <div className="ml-4">
+//                 <p className="font-semibold">{author}</p>
+//                 <p className="text-sm text-yellow-300">{role}</p>
+//             </div>
+//         </div>
+//       </div>
+//     </div>
+// );
+
+// const Footer = () => (
+//     <footer className="bg-gray-800 text-white text-center py-6">
+//         <p>&copy; {new Date().getFullYear()} Learnify. All rights reserved.</p>
+//     </footer>
+// );
+
+
+// // --- Main Landing Page Component ---
+// export default function LandingPage() {
+//   return (
+//     <div className="bg-gray-50 text-gray-900 font-sans">
+//       <Navbar />
+      
+//       <main>
+//         {/* Hero Section */}
+//         <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-24 bg-blue-500">
+//             <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-wide">
+//               Learnify<span className="text-yellow-400">.</span>
+//             </h1>
+//             <div className="bg-black p-6 rounded-lg mt-8 w-full max-w-4xl">
+//                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+//                   Your Personalized Learning Path, Powered by AI
+//                 </h2>
+//             </div>
+//             <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center w-full max-w-xs sm:max-w-none">
+//                 <Button>Start Your Learning Journey</Button>
+//                 <Button>Create a Path for Students</Button>
+//             </div>
+//         </section>
+
+//         {/* Why Learnify? (Benefits Section) */}
+//         <section className="px-4 sm:px-6 py-20 bg-white">
+//             <div className="max-w-4xl mx-auto">
+//                 <div className="text-center mb-12">
+//                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">The Smarter Way to Learn and Teach</h2>
+//                     <p className="mt-4 text-lg text-gray-600">Unlock potential with tools designed for modern education.</p>
+//                 </div>
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//                     <BenefitCard icon={<SparklesIcon />} title="For Students">
+//                         Master subjects faster with a curriculum that adapts to your personal learning style and pace.
+//                     </BenefitCard>
+//                     <BenefitCard icon={<ChartBarIcon />} title="For Teachers">
+//                         Save hours on planning and get real-time insights into student progress to provide targeted support.
+//                     </BenefitCard>
+//                 </div>
+//             </div>
+//         </section>
+
+//         {/* "How It Works" Section */}
+//         <section className="px-4 sm:px-6 py-20 sm:py-24 bg-[#1C6EA4]">
+//             <div className="max-w-6xl mx-auto">
+//                 <h3 className="text-3xl sm:text-4xl font-bold mb-12 sm:mb-16 text-center text-white">Three Simple Steps to Success</h3>
+//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+//                     <HowItWorksCard icon={<SparklesIcon />} title="Create Path">
+//                         Teachers design structured learning paths with resources, quizzes, and AI-generated content.
+//                     </HowItWorksCard>
+//                     <HowItWorksCard icon={<ChartBarIcon />} title="Learn Intelligently">
+//                         Students follow personalized paths with interactive content and AI-powered assistance.
+//                     </HowItWorksCard>
+//                     <HowItWorksCard icon={<SparklesIcon />} title="Track Progress">
+//                         Advanced analytics provide insights into learning progress and engagement patterns.
+//                     </HowItWorksCard>
+//                 </div>
+//             </div>
+//         </section>
+
+//         {/* Testimonials Section */}
+//         <section className="px-4 sm:px-6 py-20 bg-white">
+//             <div className="max-w-4xl mx-auto">
+//                 <div className="text-center mb-12">
+//                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">Trusted by Educators and Learners</h2>
+//                 </div>
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//                     <TestimonialCard 
+//                         quote="Learnify has transformed my classroom. I can finally give each student the personalized attention they need to succeed."
+//                         author="Sarah J."
+//                         role="10th Grade History Teacher"
+//                     />
+//                     <TestimonialCard 
+//                         quote="I used to struggle with calculus, but the adaptive path helped me identify my weak spots and master them. I've never felt more confident."
+//                         author="Michael P."
+//                         role="University Student"
+//                     />
+//                 </div>
+//             </div>
+//         </section>
+//       </main>
+      
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+// Final design
+
+
+// import React, { useState, useEffect } from 'react';
+
+// // --- SVG Icon Components ---
+// const SparklesIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m1-12a9 9 0 011.666 3.033m-1.666-3.033a9 9 0 00-1.666 3.033m1.666-3.033h.008v.008h-.008v-.008zm-3.332 0h.008v.008h-.008v-.008zm-3.332 0h.008v.008h-.008v-.008zm1.666 11.334a9 9 0 01-1.666-3.033m1.666 3.033a9 9 0 001.666-3.033m-1.666 3.033h.008v.008h-.008v-.008zm3.332 0h.008v.008h-.008v-.008zm3.332 0h.008v.008h-.008v-.008z" />
+//     </svg>
+// );
+
+// const ChartBarIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+//     </svg>
+// );
+
+// // --- Reusable UI Components ---
+
+// const Navbar = () => (
+//     <header className="bg-white/90 backdrop-blur-md sticky top-0 z-10 border-b border-gray-200">
+//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//             <div className="flex items-center justify-between h-16">
+//                 <h1 className="text-3xl font-bold text-gray-800">
+//                   Learnify<span className="text-blue-500">.</span>
+//                 </h1>
+//                 <div className="hidden md:flex items-center space-x-2">
+//                     <Button className="text-sm py-2 px-4">Sign in as Teacher</Button>
+//                     <Button className="text-sm py-2 px-4">Sign in as Student</Button>
+//                 </div>
+//             </div>
+//         </div>
+//     </header>
+// );
+
+// const Button = ({ children, className = '', ...props }) => {
+//   return (
+//     <button
+//       className={`bg-white w-full sm:w-auto px-6 py-3 border-2 border-black rounded-lg font-bold transition-all duration-200 hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 ${className}`}
+//       {...props}
+//     >
+//       {children}
+//     </button>
+//   );
+// };
+
+// const HowItWorksCard = ({ icon, title, children }) => {
+//     return (
+//       <div className="relative h-full">
+//         <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//         <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl h-full flex flex-col items-center text-center">
+//           {icon}
+//           <h4 className="font-bold text-2xl mt-4">{title}</h4>
+//           <p className="text-gray-700 mt-2 text-base flex-grow">
+//             {children}
+//           </p>
+//         </div>
+//       </div>
+//     );
+// };
+
+// const BenefitCard = ({ icon, title, children }) => {
+//     return (
+//       <div className="relative h-full">
+//         <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//         <div className="relative bg-white text-black p-6 border-2 border-black rounded-2xl h-full flex items-start space-x-4">
+//           <div className="flex-shrink-0 bg-gray-100 rounded-full p-3">
+//               {icon}
+//           </div>
+//           <div>
+//               <h3 className="text-xl font-bold text-gray-900">{title}</h3>
+//               <p className="mt-1 text-gray-600">{children}</p>
+//           </div>
+//         </div>
+//       </div>
+//     );
+// };
+
+// const TestimonialCard = ({ quote, author, role }) => (
+//     <div className="relative h-full w-full">
+//       <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//       <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl h-full flex flex-col">
+//         <p className="italic text-gray-700 flex-grow">"{quote}"</p>
+//         <div className="mt-6 flex items-center flex-shrink-0">
+//             <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white flex-shrink-0">
+//                 {author.charAt(0)}
+//             </div>
+//             <div className="ml-4">
+//                 <p className="font-semibold text-gray-900">{author}</p>
+//                 <p className="text-sm text-gray-500">{role}</p>
+//             </div>
+//         </div>
+//       </div>
+//     </div>
+// );
+
+// const Footer = () => (
+//     <footer className="bg-gray-800 text-white text-center py-6">
+//         <p>&copy; {new Date().getFullYear()} Learnify. All rights reserved.</p>
+//     </footer>
+// );
+
+
+// // --- Main Landing Page Component ---
+// export default function LandingPage() {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+
+//   useEffect(() => {
+//     const handleResize = () => setWidth(window.innerWidth);
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+
+//   const testimonials = [
+//     { 
+//         quote: "Learnify has transformed my classroom. I can finally give each student the personalized attention they need to succeed.",
+//         author: "Sarah J.",
+//         role: "10th Grade History Teacher"
+//     },
+//     { 
+//         quote: "I used to struggle with calculus, but the adaptive path helped me identify my weak spots and master them. I've never felt more confident.",
+//         author: "Michael P.",
+//         role: "University Student"
+//     },
+//     { 
+//         quote: "The AI-generated quizzes are a game-changer for exam prep. It feels like having a personal tutor available 24/7.",
+//         author: "Emily R.",
+//         role: "High School Student"
+//     },
+//     {
+//         quote: "As an educator, the analytics dashboard is invaluable. I know exactly where my class is struggling and can adapt my lessons instantly.",
+//         author: "David L.",
+//         role: "College Professor"
+//     }
+//   ];
+
+//   const isDesktop = width >= 768;
+//   const maxSlides = isDesktop ? testimonials.length - 2 : testimonials.length - 1;
+
+//   const nextSlide = () => {
+//     setCurrentSlide((prev) => (prev >= maxSlides ? 0 : prev + 1));
+//   };
+
+//   const prevSlide = () => {
+//     setCurrentSlide((prev) => (prev <= 0 ? maxSlides : prev - 1));
+//   };
+
+//   return (
+//     <div className="bg-gray-50 text-gray-900 font-sans">
+//       <Navbar />
+      
+//       <main>
+//         {/* Hero Section */}
+//         <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-24 bg-blue-500">
+//             <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-wide">
+//               Learnify<span className="text-yellow-400">.</span>
+//             </h1>
+//             <div className="bg-black p-6 rounded-lg mt-8 w-full max-w-4xl">
+//                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+//                   Your Personalized Learning Path, Powered by AI
+//                 </h2>
+//             </div>
+//             <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center w-full max-w-xs sm:max-w-none">
+//                 <Button>Start Your Learning Journey</Button>
+//                 <Button>Empower Your Classroom</Button>
+//             </div>
+//         </section>
+
+//         {/* Why Learnify? (Benefits Section) */}
+//         <section className="px-4 sm:px-6 py-20 bg-white">
+//             <div className="max-w-4xl mx-auto">
+//                 <div className="text-center mb-12">
+//                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">The Smarter Way to Learn and Teach</h2>
+//                     <p className="mt-4 text-lg text-gray-600">Unlock potential with tools designed for modern education.</p>
+//                 </div>
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//                     <BenefitCard icon={<SparklesIcon />} title="For Students">
+//                         Master subjects faster with a curriculum that adapts to your personal learning style and pace.
+//                     </BenefitCard>
+//                     <BenefitCard icon={<ChartBarIcon />} title="For Teachers">
+//                         Save hours on planning and get real-time insights into student progress to provide targeted support.
+//                     </BenefitCard>
+//                 </div>
+//             </div>
+//         </section>
+
+//         {/* "How It Works" Section */}
+//         <section className="px-4 sm:px-6 py-20 sm:py-24 bg-[#1C6EA4]">
+//             <div className="max-w-6xl mx-auto">
+//                 <h3 className="text-3xl sm:text-4xl font-bold mb-12 sm:mb-16 text-center text-white">Three Simple Steps to Success</h3>
+//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+//                     <HowItWorksCard icon={<SparklesIcon />} title="Create Path">
+//                         Teachers design structured learning paths with resources, quizzes, and AI-generated content.
+//                     </HowItWorksCard>
+//                     <HowItWorksCard icon={<ChartBarIcon />} title="Learn Intelligently">
+//                         Students follow personalized paths with interactive content and AI-powered assistance.
+//                     </HowItWorksCard>
+//                     <HowItWorksCard icon={<SparklesIcon />} title="Track Progress">
+//                         Advanced analytics provide insights into learning progress and engagement patterns.
+//                     </HowItWorksCard>
+//                 </div>
+//             </div>
+//         </section>
+
+//         {/* Testimonials Section */}
+//         <section className="px-4 sm:px-6 py-20 bg-white">
+//             <div className="max-w-4xl mx-auto">
+//                 <div className="text-center mb-12">
+//                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">Trusted by Educators and Learners</h2>
+//                 </div>
+                
+//                 <div className="relative">
+//                     <div className="overflow-hidden">
+//                         <div 
+//                             className="flex transition-transform duration-500 ease-in-out" 
+//                             style={{ transform: `translateX(-${isDesktop ? currentSlide * 50 : currentSlide * 100}%)` }}
+//                         >
+//                             {testimonials.map((testimonial, index) => (
+//                                 <div key={index} className="w-full md:w-1/2 flex-shrink-0 px-4 pb-4">
+//                                     <TestimonialCard {...testimonial} />
+//                                 </div>
+//                             ))}
+//                         </div>
+//                     </div>
+
+//                     {/* Carousel Controls */}
+//                     <div className="flex justify-center items-center space-x-4 mt-8">
+//                         <button onClick={prevSlide} className="bg-white p-3 rounded-full shadow-md border-2 border-gray-200 hover:bg-gray-100 transition">
+//                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+//                         </button>
+//                         <button onClick={nextSlide} className="bg-white p-3 rounded-full shadow-md border-2 border-gray-200 hover:bg-gray-100 transition">
+//                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+//                         </button>
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//       </main>
+      
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+
+// // --- SVG Icon Components ---
+// const SparklesIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m1-12a9 9 0 011.666 3.033m-1.666-3.033a9 9 0 00-1.666 3.033m1.666-3.033h.008v.008h-.008v-.008zm-3.332 0h.008v.008h-.008v-.008zm-3.332 0h.008v.008h-.008v-.008zm1.666 11.334a9 9 0 01-1.666-3.033m1.666 3.033a9 9 0 001.666-3.033m-1.666 3.033h.008v.008h-.008v-.008zm3.332 0h.008v.008h-.008v-.008zm3.332 0h.008v.008h-.008v-.008z" />
+//     </svg>
+// );
+
+// const ChartBarIcon = () => (
+//     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+//         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+//     </svg>
+// );
+
+// // --- Mock React Router Components ---
+// // In your real project, you would `import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';`
+// const mockRouter = {
+//   pathname: '/',
+//   navigate: (path) => {
+//     window.history.pushState({}, '', path);
+//     window.dispatchEvent(new PopStateEvent('popstate'));
+//   }
+// };
+
+// const Link = ({ to, children }) => (
+//   <a href={to} onClick={(e) => { e.preventDefault(); mockRouter.navigate(to); }}>
+//     {children}
+//   </a>
+// );
+
+// // --- Reusable UI Components ---
+
+// const Navbar = () => (
+//     <header className="bg-white/80 backdrop-blur-md sticky top-0 z-10 border-b border-gray-200">
+//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//             <div className="flex items-center justify-between h-16">
+//                 <Link to="/">
+//                     <h1 className="text-3xl font-bold text-gray-800">
+//                       Learnify<span className="text-blue-500">.</span>
+//                     </h1>
+//                 </Link>
+//                 <div className="hidden md:flex items-center space-x-4">
+//                     <Link to="/teacher-login">
+//                         <Button className="text-sm py-2 px-4">Sign in as Teacher</Button>
+//                     </Link>
+//                     <Link to="/student-login">
+//                         <Button className="text-sm py-2 px-4">Sign in as Student</Button>
+//                     </Link>
+//                 </div>
+//             </div>
+//         </div>
+//     </header>
+// );
+
+// const Button = ({ children, className = '', ...props }) => {
+//   return (
+//     <button
+//       className={`bg-white w-full sm:w-auto px-6 py-3 border-2 border-black rounded-lg font-bold transition-all duration-200 hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1 ${className}`}
+//       {...props}
+//     >
+//       {children}
+//     </button>
+//   );
+// };
+
+// const HowItWorksCard = ({ icon, title, children }) => {
+//     return (
+//       <div className="relative h-full">
+//         <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//         <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl h-full flex flex-col items-center text-center">
+//           {icon}
+//           <h4 className="font-bold text-2xl mt-4">{title}</h4>
+//           <p className="text-gray-700 mt-2 text-base flex-grow">
+//             {children}
+//           </p>
+//         </div>
+//       </div>
+//     );
+// };
+
+// const BenefitCard = ({ icon, title, children }) => {
+//     return (
+//       <div className="relative h-full">
+//         <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//         <div className="relative bg-white text-black p-6 border-2 border-black rounded-2xl h-full flex items-start space-x-4">
+//           <div className="flex-shrink-0 bg-gray-100 rounded-full p-3">
+//               {icon}
+//           </div>
+//           <div>
+//               <h3 className="text-xl font-bold text-gray-900">{title}</h3>
+//               <p className="mt-1 text-gray-600">{children}</p>
+//           </div>
+//         </div>
+//       </div>
+//     );
+// };
+
+// const TestimonialCard = ({ quote, author, role }) => (
+//     <div className="relative h-full w-full">
+//       <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
+//       <div className="relative bg-white text-black p-8 border-2 border-black rounded-2xl h-full flex flex-col">
+//         <p className="italic text-gray-700 flex-grow">"{quote}"</p>
+//         <div className="mt-6 flex items-center flex-shrink-0">
+//             <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white flex-shrink-0">
+//                 {author.charAt(0)}
+//             </div>
+//             <div className="ml-4">
+//                 <p className="font-semibold text-gray-900">{author}</p>
+//                 <p className="text-sm text-gray-500">{role}</p>
+//             </div>
+//         </div>
+//       </div>
+//     </div>
+// );
+
+// const CarouselButton = ({ onClick, children }) => (
+//     <div className="relative group cursor-pointer">
+//         <div className="absolute inset-0 bg-black rounded-lg transform translate-x-0.5 translate-y-0.5"></div>
+//         <button 
+//             onClick={onClick} 
+//             className="relative bg-white p-3 border-2 border-black rounded-lg transition-all duration-200 group-hover:bg-gray-100"
+//         >
+//             {children}
+//         </button>
+//     </div>
+// );
+
+// const Footer = () => (
+//     <footer className="bg-gray-800 text-white text-center py-6">
+//         <p>&copy; {new Date().getFullYear()} Learnify. All rights reserved.</p>
+//     </footer>
+// );
+
+
+// // --- Page Components ---
+
+// const LandingPage = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const [width, setWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+
+//   useEffect(() => {
+//     const handleResize = () => setWidth(window.innerWidth);
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+
+//   const testimonials = [
+//     { 
+//         quote: "Learnify has transformed my classroom. I can finally give each student the personalized attention they need to succeed.",
+//         author: "Sarah J.",
+//         role: "10th Grade History Teacher"
+//     },
+//     { 
+//         quote: "I used to struggle with calculus, but the adaptive path helped me identify my weak spots and master them. I've never felt more confident.",
+//         author: "Michael P.",
+//         role: "University Student"
+//     },
+//     { 
+//         quote: "The AI-generated quizzes are a game-changer for exam prep. It feels like having a personal tutor available 24/7.",
+//         author: "Emily R.",
+//         role: "High School Student"
+//     },
+//     {
+//         quote: "As an educator, the analytics dashboard is invaluable. I know exactly where my class is struggling and can adapt my lessons instantly.",
+//         author: "David L.",
+//         role: "College Professor"
+//     }
+//   ];
+
+//   const isDesktop = width >= 768;
+//   const maxSlides = isDesktop ? testimonials.length - 2 : testimonials.length - 1;
+
+//   const nextSlide = () => {
+//     setCurrentSlide((prev) => (prev >= maxSlides ? 0 : prev + 1));
+//   };
+
+//   const prevSlide = () => {
+//     setCurrentSlide((prev) => (prev <= 0 ? maxSlides : prev - 1));
+//   };
+
+//   return (
+//     <main>
+//         {/* Hero Section */}
+//         <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-24 bg-blue-500">
+//             <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-wide">
+//               Learnify<span className="text-yellow-400">.</span>
+//             </h1>
+//             <div className="bg-black p-6 rounded-lg mt-8 w-full max-w-4xl">
+//                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+//                   Your Personalized Learning Path, Powered by AI
+//                 </h2>
+//             </div>
+//             <div className="mt-10 flex flex-col sm:flex-row gap-6 justify-center w-full max-w-xs sm:max-w-none">
+//                 <Link to="/student-login">
+//                     <Button>Start Your Learning Journey</Button>
+//                 </Link>
+//                 <Link to="/teacher-login">
+//                     <Button>Empower Your Classroom</Button>
+//                 </Link>
+//             </div>
+//         </section>
+
+//         {/* Why Learnify? (Benefits Section) */}
+//         <section className="px-4 sm:px-6 py-20 bg-white">
+//             <div className="max-w-4xl mx-auto">
+//                 <div className="text-center mb-12">
+//                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">The Smarter Way to Learn and Teach</h2>
+//                     <p className="mt-4 text-lg text-gray-600">Unlock potential with tools designed for modern education.</p>
+//                 </div>
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//                     <BenefitCard icon={<SparklesIcon />} title="For Students">
+//                         Master subjects faster with a curriculum that adapts to your personal learning style and pace.
+//                     </BenefitCard>
+//                     <BenefitCard icon={<ChartBarIcon />} title="For Teachers">
+//                         Save hours on planning and get real-time insights into student progress to provide targeted support.
+//                     </BenefitCard>
+//                 </div>
+//             </div>
+//         </section>
+
+//         {/* "How It Works" Section */}
+//         <section className="px-4 sm:px-6 py-20 sm:py-24 bg-[#1C6EA4]">
+//             <div className="max-w-6xl mx-auto">
+//                 <h3 className="text-3xl sm:text-4xl font-bold mb-12 sm:mb-16 text-center text-white">Three Simple Steps to Success</h3>
+//                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+//                     <HowItWorksCard icon={<SparklesIcon />} title="Create Path">
+//                         Teachers design structured learning paths with resources, quizzes, and AI-generated content.
+//                     </HowItWorksCard>
+//                     <HowItWorksCard icon={<ChartBarIcon />} title="Learn Intelligently">
+//                         Students follow personalized paths with interactive content and AI-powered assistance.
+//                     </HowItWorksCard>
+//                     <HowItWorksCard icon={<SparklesIcon />} title="Track Progress">
+//                         Advanced analytics provide insights into learning progress and engagement patterns.
+//                     </HowItWorksCard>
+//                 </div>
+//             </div>
+//         </section>
+
+//         {/* Testimonials Section */}
+//         <section className="px-4 sm:px-6 py-20 bg-white">
+//             <div className="max-w-4xl mx-auto">
+//                 <div className="text-center mb-12">
+//                     <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">Trusted by Educators and Learners</h2>
+//                 </div>
+                
+//                 <div className="relative">
+//                     <div className="overflow-hidden">
+//                         <div 
+//                             className="flex transition-transform duration-500 ease-in-out" 
+//                             style={{ transform: `translateX(-${isDesktop ? currentSlide * 50 : currentSlide * 100}%)` }}
+//                         >
+//                             {testimonials.map((testimonial, index) => (
+//                                 <div key={index} className="w-full md:w-1/2 flex-shrink-0 px-4 pb-4">
+//                                     <TestimonialCard {...testimonial} />
+//                                 </div>
+//                             ))}
+//                         </div>
+//                     </div>
+
+//                     {/* Carousel Controls */}
+//                     <div className="flex justify-center items-center space-x-4 mt-8">
+//                         <CarouselButton onClick={prevSlide}>
+//                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+//                         </CarouselButton>
+//                         <CarouselButton onClick={nextSlide}>
+//                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+//                         </CarouselButton>
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//         <Footer />
+//     </main>
+//   );
+// }
+
+// const TeacherLoginPage = () => (
+//     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+//         <h2 className="text-4xl font-bold mb-4">Teacher Login</h2>
+//         <p className="text-lg text-gray-600">This is where the teacher login form would go.</p>
+//         <Link to="/"><Button className="mt-8">Back to Home</Button></Link>
+//     </div>
+// );
+
+// const StudentLoginPage = () => (
+//     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+//         <h2 className="text-4xl font-bold mb-4">Student Login</h2>
+//         <p className="text-lg text-gray-600">This is where the student login form would go.</p>
+//         <Link to="/"><Button className="mt-8">Back to Home</Button></Link>
+//     </div>
+// );
+
+
+// // --- Main App Component with Routing ---
+// export default function App() {
+//   const [route, setRoute] = useState(mockRouter.pathname);
+
+//   useEffect(() => {
+//     const handlePopState = () => setRoute(window.location.pathname);
+//     window.addEventListener('popstate', handlePopState);
+//     mockRouter.navigate = (path) => {
+//         window.history.pushState({}, '', path);
+//         handlePopState();
+//     };
+//     return () => window.removeEventListener('popstate', handlePopState);
+//   }, []);
+
+//   let Component;
+//   switch (route) {
+//     case '/teacher-login':
+//       Component = TeacherLoginPage;
+//       break;
+//     case '/student-login':
+//       Component = StudentLoginPage;
+//       break;
+//     default:
+//       Component = LandingPage;
+//   }
+
+//   return (
+//     <div className="bg-gray-50 text-gray-900 font-sans">
+//       <Navbar />
+//       <Component />
+//     </div>
+//   );
+// }
+
+
+
