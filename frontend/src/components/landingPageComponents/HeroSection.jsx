@@ -4,26 +4,28 @@ import Button from '../ui/Button';
 
 const HeroSection = () => {
     return (
-        <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 sm:py-24 bg-blue-500 overflow-hidden">
-            {/* Logo */}
-            <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-wide flex items-center">
-                Learnify<span className="text-yellow-400">.</span>
-            </h1>
+        <section className="flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20 bg-[#33A1E0]">
+            <div className="max-w-4xl">
+                <div className="flex justify-center mb-8">
+                    {/* The amber background has been removed for a cleaner look */}
+                    <h1 className="text-5xl md:text-7xl font-bold text-white">
+                      Learnify<span className="text-yellow-400">.</span>
+                    </h1>
+                </div>
 
-            {/* Headline */}
-            <div className="mt-8">
-                <div className="bg-black p-6 rounded-lg w-full max-w-4xl">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                <div className="bg-black p-6 rounded-lg">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                       Your Personalized Learning Path, Powered by AI
                     </h2>
                 </div>
-            </div>
 
-            {/* Buttons */}
-            <div className="mt-10">
-                <div className="flex flex-col sm:flex-row gap-6 justify-center w-full max-w-xs sm:max-w-none">
-                    <Link to="/student-login"><Button>Start Your Learning Journey</Button></Link>
-                    <Link to="/teacher-login"><Button>Empower Your Classroom</Button></Link>
+                <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link to="/student-login">
+                      <Button className="w-full sm:w-auto">Start Your Learning Journey</Button>
+                    </Link>
+                    <Link to="/teacher-login">
+                      <Button className="w-full sm:w-auto">Empower Your Classroom</Button>
+                    </Link>
                 </div>
             </div>
         </section>
@@ -31,3 +33,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
