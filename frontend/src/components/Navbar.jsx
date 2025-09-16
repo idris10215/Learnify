@@ -40,7 +40,7 @@ const Navbar = ({ user }) => {
                                     <Button className="text-sm py-2 px-4">Go to Dashboard</Button>
                                 </Link>
                                 <div className="relative">
-                                    <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="block h-10 w-10 rounded-full overflow-hidden border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 flex items-center justify-center bg-gray-200 font-bold text-gray-600">
+                                    <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="h-10 w-10 rounded-full overflow-hidden border-2 border-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 flex items-center justify-center bg-gray-200 font-bold text-gray-600">
                                         {userInitial}
                                     </button>
                                     {isProfileOpen && (

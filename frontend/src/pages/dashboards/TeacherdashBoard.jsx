@@ -17,7 +17,7 @@ const DashboardCard = ({ children, className = '' }) => (
 
 const StatCard = ({ title, value, change, icon }) => (
     <DashboardCard>
-        <div className="flex items-start justify-between">
+        <div cl assName="flex items-start justify-between">
             <div>
                 <p className="text-sm font-medium text-gray-500">{title}</p>
                 <p className="text-3xl font-bold mt-1">{value}</p>

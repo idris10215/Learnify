@@ -160,7 +160,7 @@ const LoginPage = ({ role }) => {
                         )}
                     </div>
                     <MotivationalQuote role={role} />
-                </div>
+                </div> 
             </div>
         </main>
     );
