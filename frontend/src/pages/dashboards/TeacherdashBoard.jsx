@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
-    Bell, User, Settings, LogOut, LayoutDashboard, BookCopy, Menu, Search, ChevronDown, PlusCircle, Upload, Eye, Award, Users, BarChart2, TrendingUp, TrendingDown, Clock
+    Bell, User, Settings, LogOut, LayoutDashboard, BookCopy, Menu, PlusCircle, BarChart2, Award, Users, TrendingUp, TrendingDown, Clock, Upload, Eye
 } from 'lucide-react';
 
 // --- Reusable UI Components ---
@@ -17,7 +17,7 @@ const DashboardCard = ({ children, className = '' }) => (
 
 const StatCard = ({ title, value, change, icon }) => (
     <DashboardCard>
-        <div cl assName="flex items-start justify-between">
+        <div className="flex items-start justify-between">
             <div>
                 <p className="text-sm font-medium text-gray-500">{title}</p>
                 <p className="text-3xl font-bold mt-1">{value}</p>
@@ -36,8 +36,8 @@ const StatCard = ({ title, value, change, icon }) => (
 
 const QuickActionButton = ({ text, icon }) => (
      <div className="relative group cursor-pointer h-full">
-        <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1"></div>
-        <button className="relative bg-white w-full h-full p-6 border-2 border-black rounded-2xl flex flex-col items-center justify-center text-center font-semibold hover:bg-gray-50 transition-colors">
+        <div className="absolute inset-0 bg-black rounded-2xl transform translate-x-1 translate-y-1 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform duration-200"></div>
+        <button className="relative bg-white w-full h-full p-6 border-2 border-black rounded-2xl flex flex-col items-center justify-center text-center font-semibold group-hover:bg-gray-50 transition-colors">
             {icon}
             <span className="mt-2 text-sm">{text}</span>
         </button>
@@ -50,6 +50,7 @@ const QuickActionButton = ({ text, icon }) => (
 const TeacherSidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     const [isHoverExpanded, setIsHoverExpanded] = useState(false);
     const isExpanded = isHoverExpanded;
+    const location = useLocation();
 
     const navItems = [
         { icon: <LayoutDashboard size={20} />, name: 'Home', path: '/teacher-dashboard' },
@@ -72,16 +73,19 @@ const TeacherSidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 <div className={`p-4 transition-opacity duration-300 ${isExpanded ? 'opacity-100' : 'opacity-0'}`}><p className="text-sm font-semibold text-gray-400">TEACHER PORTAL</p></div>
                 <nav className="flex-1 px-4">
                     <ul className="space-y-2">
-                        {navItems.map(item => (
-                            <li key={item.name}>
-                                <Link to={item.path} className={`flex items-center px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors font-medium overflow-hidden ${!isExpanded && 'justify-center'}`}>
-                                    {item.icon}
-                                    <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'w-40 ml-3' : 'w-0 ml-0'}`}>
-                                        <span className="whitespace-nowrap">{item.name}</span>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
+                        {navItems.map(item => {
+                            const isActive = location.pathname === item.path;
+                            return (
+                                <li key={item.name}>
+                                    <Link to={item.path} className={`flex items-center px-4 py-3 rounded-lg transition-colors font-medium overflow-hidden ${!isExpanded && 'justify-center'} ${isActive ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}>
+                                        {item.icon}
+                                        <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'w-40 ml-3' : 'w-0 ml-0'}`}>
+                                            <span className="whitespace-nowrap">{item.name}</span>
+                                        </div>
+                                    </Link>
+                                </li>
+                            );
+                        })}
                     </ul>
                 </nav>
                 <div className="p-4 border-t-2 border-gray-200">
@@ -158,10 +162,10 @@ const TeacherDashboard = () => {
                     <div className="space-y-8">
                         {/* Stats Cards */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <StatCard title="Total Students" value="143" change="+12 this month" icon={<Users size={24} />} />
-                            <StatCard title="Active Paths" value="8" change="3 recently updated" icon={<BookCopy size={24} />} />
-                            <StatCard title="Avg. Completion" value="82%" change="+5% from last week" icon={<Award size={24} />} />
-                            <StatCard title="Time Spent" value="24h" change="This week" icon={<Clock size={24} />} />
+                            <StatCard title="Total Students" value="143" change="+12 this month" icon={<Users size={24} className="text-blue-500" />} />
+                            <StatCard title="Active Paths" value="8" change="3 recently updated" icon={<BookCopy size={24} className="text-green-500"/>} />
+                            <StatCard title="Avg. Completion" value="82%" change="+5% from last week" icon={<Award size={24} className="text-yellow-500"/>} />
+                            <StatCard title="Time Spent" value="24h" change="This week" icon={<Clock size={24} className="text-purple-500"/>} />
                         </div>
 
                         {/* Quick Actions */}
@@ -215,3 +219,4 @@ const TeacherDashboard = () => {
 };
 
 export default TeacherDashboard;
+

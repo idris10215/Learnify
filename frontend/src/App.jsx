@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
-import { Hub } from 'aws-amplify/utils';
-import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -10,9 +8,10 @@ import LoginNavbar from './components/LoginNavbar';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import StudentDashboard from './pages/dashboards/StudentdashBoard';
-import TeacherDashboard from './pages/dashboards/TeacherdashBoard';
+import TeacherDashboard from './pages/dashboards/TeacherDashBoard';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PublicRoute from './components/auth/PublicRoute';
+import withAuth from './components/auth/withAuth'; // Import our new HOC
 
 Amplify.configure({
   Auth: {
@@ -39,45 +38,8 @@ const AuthLayout = ({ children }) => (
     </div>
 );
 
-const App = () => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkUser = async () => {
-      setLoading(true);
-      try {
-        const currentUser = await getCurrentUser();
-        setUser(currentUser);
-      } catch (error) {
-        setUser(null);
-      }
-      setLoading(false);
-    };
-
-    const hubListener = (data) => {
-      switch (data.payload.event) {
-        case 'signedIn':
-          checkUser();
-          break;
-        case 'signedOut':
-          setUser(null);
-          break;
-      }
-    };
-
-    // The Hub.listen function now returns an unsubscribe function.
-    const unsubscribe = Hub.listen('auth', hubListener);
-    checkUser();
-
-    // The cleanup function now calls the returned unsubscribe function.
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
-  }
-
+// The App component is now much simpler. It just receives the 'user' prop.
+const App = ({ user }) => {
   return (
     <BrowserRouter>
       <div className="bg-gray-50 text-gray-900 font-sans">
@@ -123,6 +85,6 @@ const App = () => {
   );
 };
 
-export default App;
-
+// We export the App component wrapped in our withAuth "brain".
+export default withAuth(App);
 
