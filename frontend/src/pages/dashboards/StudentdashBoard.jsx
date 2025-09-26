@@ -1,6 +1,7 @@
 import { getCurrentUser, signOut } from "aws-amplify/auth";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/ui/Button";
 
 const StudentDashBoard = () => {
   const [user, setuser] = useState(null);

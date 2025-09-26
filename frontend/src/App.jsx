@@ -11,7 +11,7 @@ import StudentDashboard from './pages/dashboards/StudentdashBoard';
 import TeacherDashboard from './pages/dashboards/TeacherDashBoard';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PublicRoute from './components/auth/PublicRoute';
-import withAuth from './components/auth/withAuth'; // Import our new HOC
+import withAuth from './components/auth/withAuth'; 
 
 Amplify.configure({
   Auth: {
