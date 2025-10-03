@@ -144,6 +144,7 @@ const LoginPage = ({ role }) => {
             } else {
                 setError(`Access Denied: You do not have a valid role assigned.`);
             }
+            
         }
     };
 

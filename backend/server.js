@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import pathRoutes from './routes/pathRoutes.js';
+import moduleRoutes from './routes/moduleRoutes.js';
 import uploadROutes from './routes/uploadRoutes.js';
 
 dotenv.config();
@@ -25,7 +25,7 @@ const connectDB = async () => {
 }
 
 
-app.use('/api/paths', pathRoutes);
+app.use('/api/modules', moduleRoutes);
 
 app.use('/api/upload', uploadROutes);
 

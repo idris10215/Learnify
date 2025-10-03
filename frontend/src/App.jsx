@@ -12,6 +12,9 @@ import TeacherDashboard from './pages/dashboards/TeacherDashBoard';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import PublicRoute from './components/auth/PublicRoute';
 import withAuth from './components/auth/withAuth'; 
+import CreateModulePage from './pages/CreateModulePage';
+import AddSectionsPage from './pages/AddSectionPage';
+import ModuleLibraryPage from './pages/ModuleLibraryPage';
 
 Amplify.configure({
   Auth: {
@@ -76,6 +79,59 @@ const App = ({ user }) => {
             element={
               <ProtectedRoute user={user} redirectTo="/">
                 <TeacherDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/create-module" 
+            element={
+              <ProtectedRoute user={user} redirectTo="/">
+                <CreateModulePage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/add-sections" 
+            element={
+              <ProtectedRoute user={user} redirectTo="/">
+                <AddSectionsPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/teacher-modules" 
+            element={
+              <ProtectedRoute user={user} redirectTo="/">
+                <ModuleLibraryPage />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* This is the page for viewing a SINGLE module */}
+          <Route 
+            path="/teacher-modules/:moduleId" 
+            element={
+              <ProtectedRoute user={user} redirectTo="/">
+                {/* We will build this page later */}
+                <div><h1>Single Module Viewer Page</h1></div> 
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/teacher-classes" 
+            element={
+              <ProtectedRoute user={user} redirectTo="/">
+                {/* We will build this page later */}
+                <div><h1>My Classes Page</h1></div> 
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/analytics" 
+            element={
+              <ProtectedRoute user={user} redirectTo="/">
+                {/* We will build this page later */}
+                <div><h1>Analytics</h1></div> 
               </ProtectedRoute>
             } 
           />

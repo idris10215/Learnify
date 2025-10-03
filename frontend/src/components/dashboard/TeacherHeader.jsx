@@ -23,7 +23,7 @@ const TeacherHeader = () => {
 
     const navLinks = [
         { name: 'Dashboard', path: '/teacher-dashboard' },
-        { name: 'My Paths', path: '/teacher-paths' },
+        { name: 'My Modules', path: '/teacher-modules' },
         { name: 'My Classes', path: '/teacher-classes' },
         { name: 'Analytics', path: '/analytics' },
     ];
@@ -33,7 +33,7 @@ const TeacherHeader = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex-shrink-0">
-                        <Link to="/teacher-dashboard">
+                        <Link to="/">
                             <h1 className="text-3xl font-bold text-gray-800">Learnify<span className="text-blue-500">.</span></h1>
                         </Link>
                     </div>

@@ -1,0 +1,18 @@
+{
+  "resourceName": "s393e41ced",
+  "policyUUID": "93e41ced",
+  "bucketName": "frontend2ff29a517ff44093ada7f4a50025e080",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [],
+  "groupAccess": {
+    "Teachers": [
+      "CREATE_AND_UPDATE",
+      "READ",
+      "DELETE"
+    ],
+    "Students": [
+      "READ"
+    ]
+  }
+}
