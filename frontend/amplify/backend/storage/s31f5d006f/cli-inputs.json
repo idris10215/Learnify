@@ -1,7 +1,7 @@
 {
-  "resourceName": "s393e41ced",
-  "policyUUID": "93e41ced",
-  "bucketName": "frontend2ff29a517ff44093ada7f4a50025e080",
+  "resourceName": "s31f5d006f",
+  "policyUUID": "1f5d006f",
+  "bucketName": "frontend1f733fe31585453bae256ad8922efd90",
   "storageAccess": "auth",
   "guestAccess": [],
   "authAccess": [],
@@ -11,7 +11,7 @@
       "READ",
       "DELETE"
     ],
-    "Students": [
+    "Student": [
       "READ"
     ]
   }

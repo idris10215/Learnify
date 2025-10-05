@@ -15,6 +15,7 @@ import withAuth from './components/auth/withAuth';
 import CreateModulePage from './pages/CreateModulePage';
 import AddSectionsPage from './pages/AddSectionPage';
 import ModuleLibraryPage from './pages/ModuleLibraryPage';
+import ModuleViewerPage from './pages/ModuleViewerPage';
 
 Amplify.configure({
   Auth: {
@@ -112,8 +113,7 @@ const App = ({ user }) => {
             path="/teacher-modules/:moduleId" 
             element={
               <ProtectedRoute user={user} redirectTo="/">
-                {/* We will build this page later */}
-                <div><h1>Single Module Viewer Page</h1></div> 
+                <ModuleViewerPage />
               </ProtectedRoute>
             } 
           />
@@ -136,6 +136,7 @@ const App = ({ user }) => {
             } 
           />
         </Routes>
+        
       </div>
     </BrowserRouter>
   );

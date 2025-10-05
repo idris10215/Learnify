@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "frontendc6410830_identitypool_c6410830",
+    "identityPoolName": "frontendfb4f249e_identitypool_fb4f249e",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "frontec6410830",
-    "userPoolName": "frontendc6410830_userpool_c6410830",
+    "resourceNameTruncated": "frontefb4f249e",
+    "userPoolName": "frontendfb4f249e_userpool_fb4f249e",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,10 +31,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "frontec6410830_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "frontefb4f249e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "c6410830",
-    "resourceName": "frontendc6410830",
+    "sharedId": "fb4f249e",
+    "resourceName": "frontendfb4f249e",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
@@ -42,7 +42,7 @@
     ],
     "userPoolGroupList": [
       "Teachers",
-      "Students"
+      "Student"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,

@@ -10,6 +10,7 @@ const sectionSchema = new mongoose.Schema({
     enum: ["PDF", "PPT", "WORD"],
   },
   contentUrl: { type: String, required: true },
+  originalFileName: { type: String },
 });
 
 // The main blueprint is now for a Module.

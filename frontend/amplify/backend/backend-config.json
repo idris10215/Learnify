@@ -1,6 +1,6 @@
 {
   "auth": {
-    "frontendc6410830": {
+    "frontendfb4f249e": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -36,7 +36,7 @@
             "IdentityPoolId"
           ],
           "category": "auth",
-          "resourceName": "frontendc6410830"
+          "resourceName": "frontendfb4f249e"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -44,14 +44,14 @@
     }
   },
   "storage": {
-    "s393e41ced": {
+    "s31f5d006f": {
       "dependsOn": [
         {
           "attributes": [
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "frontendc6410830"
+          "resourceName": "frontendfb4f249e"
         },
         {
           "attributes": [
@@ -62,7 +62,7 @@
         },
         {
           "attributes": [
-            "StudentsGroupRole"
+            "StudentGroupRole"
           ],
           "category": "auth",
           "resourceName": "userPoolGroups"

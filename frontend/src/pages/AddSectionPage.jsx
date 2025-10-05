@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { uploadData, getUrl } from "aws-amplify/storage";
 import api from "../../services/api";
+import {v4 as uuidv4} from 'uuid';
 
 import TeacherHeader from "../components/dashboard/TeacherHeader";
 import Button from "../components/ui/Button";
@@ -45,9 +46,14 @@ const AddSectionsPage = () => {
       // --- THIS IS THE CORRECT IMPLEMENTATION ---
       // 1. We define the 'path' as a function. Amplify will call this
       //    function and pass in the user's unique identityId.
+
+      // 2. Generate a unique ID and get the file extension
+      const fileExtension = selectedFile.name.split('.').pop();
+      const uniqueFileName = `${uuidv4()}.${fileExtension}`;
+
       const uploadTask = uploadData({
         path: ({ identityId }) =>
-          `protected/${identityId}/${Date.now()}-${selectedFile.name}`,
+          `protected/${identityId}/${Date.now()}-${uniqueFileName}`,
         data: selectedFile,
         options: {
           contentType: selectedFile.type,
@@ -77,6 +83,7 @@ const AddSectionsPage = () => {
         order: sections.length + 1,
         contentType: getContentType(selectedFile),
         contentUrl: contentUrl,
+        originalFileName : selectedFile.name,
       };
 
       setSections((prevSections) => [...prevSections, newSection]);
