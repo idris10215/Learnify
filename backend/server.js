@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import moduleRoutes from './routes/moduleRoutes.js';
 import uploadROutes from './routes/uploadRoutes.js';
+import classRoutes from './routes/classRoutes.js';
 
 dotenv.config();
 
@@ -28,6 +29,8 @@ const connectDB = async () => {
 app.use('/api/modules', moduleRoutes);
 
 app.use('/api/upload', uploadROutes);
+
+app.use('/api/classes', classRoutes);
 
 
 connectDB();
