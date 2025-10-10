@@ -46,6 +46,16 @@ router.get("/getAllModules", async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const module = await Module.findById(req.params.id);
+        if (!module) return res.status(404).json({ message: 'Module not found' });
+        res.status(200).json(module);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 // ROUTE:   PUT /api/modules/:id
 // DESC:    Update an existing Module's title and description
 router.put('/:id', async (req, res) => {
@@ -70,15 +80,25 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// We will also need a route to get a single module later
-router.get('/:id', async (req, res) => {
-    try {
-        const module = await Module.findById(req.params.id);
-        if (!module) return res.status(404).json({ message: 'Module not found' });
-        res.status(200).json(module);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+// ROUTE:   DELETE /api/modules/:id
+// DESC:    Delete a module by its ID
+router.delete("/:id", async (req, res) => {
+
+  try {
+
+    const deleteModule = await Module.findByIdAndDelete(req.params.id);
+
+    if (!deleteModule) {
+      return res.status(404).json({ message: "Module not found" });
     }
+
+    res.status(200).json({ message: "Module deleted successfully" });
+    
+  } catch (error) {
+    console.error("Error deleting module:", error);
+    res.status(500).json({ message: "Server error deleting module", error: error.message });
+  }
+
 });
 
 

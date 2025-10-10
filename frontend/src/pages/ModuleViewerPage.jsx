@@ -2,7 +2,7 @@
 // --- FINAL, CORRECTED VERSION WITH getUrl ---
 
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 // 1. We import 'getUrl' from the correct path, NOT 'Storage'
 import { getUrl } from "aws-amplify/storage";
 import api from "../../services/api";
@@ -16,6 +16,7 @@ const ModuleViewerPage = () => {
   const [module, setModule] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchModule = async () => {
@@ -61,6 +62,21 @@ const ModuleViewerPage = () => {
     );
   }
 
+  const handleDelete = async () => {
+
+    if (window.confirm("Are you sure you want to delete this module?")) {
+      try {
+        await api.delete(`/api/modules/${moduleId}`);
+        alert("Module deleted successfully.");
+        navigate("/teacher-modules");
+      } catch (err) {
+        console.error("Error deleting module:", err);
+        alert("Failed to delete module.");
+      }
+    }
+
+  }
+
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
       <TeacherHeader />
@@ -77,7 +93,7 @@ const ModuleViewerPage = () => {
               <Button className="!bg-yellow-400 !border-yellow-500">
                 <Edit size={16} className="md:mr-2" /> <span className="hidden md:inline">Edit</span>
               </Button>
-              <Button className="!bg-red-500 !border-red-600 text-white">
+              <Button className="!bg-red-500 !border-red-600 text-white" onClick={handleDelete}>
                 <Trash2 size={16} className="md:mr-2" /> <span className="hidden md:inline">Delete</span>
               </Button>
             </div>
