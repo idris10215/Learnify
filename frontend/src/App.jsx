@@ -19,6 +19,7 @@ import ModuleViewerPage from "./pages/ModuleViewerPage";
 import MyClassesPage from "./pages/MyClassesPage";
 import ClassManagementPage from "./pages/ClassManagementPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
+import ModuleEditorPage from "./pages/ModuleEditorPage";
 
 Amplify.configure({
   Auth: {
@@ -152,6 +153,14 @@ const App = ({ user }) => {
             element={
               <ProtectedRoute user={user} redirectTo="/">
                 <AnalyticsPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/teacher-modules/:moduleId/edit" 
+            element={
+              <ProtectedRoute user={user} redirectTo="/">
+                <ModuleEditorPage />
               </ProtectedRoute>
             } 
           />

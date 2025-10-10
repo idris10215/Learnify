@@ -63,7 +63,6 @@ const ModuleViewerPage = () => {
   }
 
   const handleDelete = async () => {
-
     if (window.confirm("Are you sure you want to delete this module?")) {
       try {
         await api.delete(`/api/modules/${moduleId}`);
@@ -74,8 +73,7 @@ const ModuleViewerPage = () => {
         alert("Failed to delete module.");
       }
     }
-
-  }
+  };
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
@@ -90,11 +88,19 @@ const ModuleViewerPage = () => {
               <p className="text-gray-600 mt-1">{module.description}</p>
             </div>
             <div className="flex space-x-2">
-              <Button className="!bg-yellow-400 !border-yellow-500">
-                <Edit size={16} className="md:mr-2" /> <span className="hidden md:inline">Edit</span>
-              </Button>
-              <Button className="!bg-red-500 !border-red-600 text-white" onClick={handleDelete}>
-                <Trash2 size={16} className="md:mr-2" /> <span className="hidden md:inline">Delete</span>
+              <Link to={`/teacher-modules/${moduleId}/edit`}>
+                <Button className="!bg-yellow-400 !border-yellow-500">
+                  <Edit size={16} className="md:mr-2" />{" "}
+                  <span className="hidden md:inline">Edit</span>
+                </Button>
+              </Link>
+
+              <Button
+                className="!bg-red-500 !border-red-600 text-white"
+                onClick={handleDelete}
+              >
+                <Trash2 size={16} className="md:mr-2" />{" "}
+                <span className="hidden md:inline">Delete</span>
               </Button>
             </div>
           </div>
