@@ -60,18 +60,24 @@ router.get('/:id', async (req, res) => {
 // DESC:    Update an existing Module's title and description
 router.put('/:id', async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, sections } = req.body;
+    
+    // STEP 1: Find the existing module in the database.
+    const moduleToUpdate = await Module.findById(req.params.id);
 
-    const updatedModule = await Module.findByIdAndUpdate(
-      req.params.id,
-      { title, description },
-      { new: true }
-    );
-
-    if (!updatedModule) {
+    if (!moduleToUpdate) {
       return res.status(404).json({ message: 'Module not found' });
     }
 
+    // STEP 2: Manually overwrite the fields with the new data.
+    // This gives us explicit control and ensures the sections array is replaced.
+    moduleToUpdate.title = title;
+    moduleToUpdate.description = description;
+    moduleToUpdate.sections = sections;
+
+    // STEP 3: Save the modified document back to the database.
+    const updatedModule = await moduleToUpdate.save();
+    
     res.status(200).json(updatedModule);
 
   } catch (error) {

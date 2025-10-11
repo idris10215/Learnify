@@ -78,9 +78,10 @@ const ModuleEditorPage = () => {
     setIsSaving(true);
     setSaveSuccess(false); // Reset success message on new save attempt
     const moduleData = { title, description, sections };
+    console.log("Frontend is sending this updated module data:", moduleData);
     try {
       await api.put(`/api/modules/${moduleId}`, moduleData);
-      
+      navigate(`/teacher-modules/${moduleId}`);
       // 2. On success, we set our success state to true
       setSaveSuccess(true);
       
