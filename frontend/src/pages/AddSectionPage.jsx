@@ -120,7 +120,7 @@ const AddSectionsPage = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col">
+    <div className="bg-[#33A1E0] min-h-screen flex flex-col">
       <TeacherHeader />
       <main className="flex-1 p-4 sm:p-6 lg:p-8">
         <div className="max-w-4xl mx-auto space-y-8">

@@ -6,7 +6,7 @@ import TestimonialsSection from '../components/landingPageComponents/Testimonial
 
 const LandingPage = () => {
   return (
-    <main>
+    <main >
       <HeroSection />
       <BenefitsSection />
       <HowItWorksSection />
