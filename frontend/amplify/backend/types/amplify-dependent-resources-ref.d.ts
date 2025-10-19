@@ -10,12 +10,21 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolName": "string"
     },
     "userPoolGroups": {
-      "StudentGroupRole": "string",
+      "StudentsGroupRole": "string",
       "TeachersGroupRole": "string"
     }
   },
+  "function": {
+    "S3Trigger3650f3e3": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
   "storage": {
-    "s31f5d006f": {
+    "s3e0fbd8cc": {
       "BucketName": "string",
       "Region": "string"
     }

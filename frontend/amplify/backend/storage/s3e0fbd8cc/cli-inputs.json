@@ -1,17 +1,18 @@
 {
-  "resourceName": "s31f5d006f",
-  "policyUUID": "1f5d006f",
-  "bucketName": "frontend1f733fe31585453bae256ad8922efd90",
+  "resourceName": "s3e0fbd8cc",
+  "policyUUID": "e0fbd8cc",
+  "bucketName": "frontend8e62c74b47814c77b339e313fb2e0043",
   "storageAccess": "auth",
   "guestAccess": [],
   "authAccess": [],
+  "triggerFunction": "S3Trigger3650f3e3",
   "groupAccess": {
     "Teachers": [
       "CREATE_AND_UPDATE",
       "READ",
       "DELETE"
     ],
-    "Student": [
+    "Students": [
       "READ"
     ]
   }

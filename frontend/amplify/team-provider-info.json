@@ -16,8 +16,14 @@
         "frontendfb4f249e": {},
         "userPoolGroups": {}
       },
+      "function": {
+        "S3Trigger3650f3e3": {
+          "deploymentBucketName": "amplify-frontend-dev-5fa0c-deployment",
+          "s3Key": "amplify-builds/S3Trigger3650f3e3-5a5262477a6b79736143-build.zip"
+        }
+      },
       "storage": {
-        "s31f5d006f": {}
+        "s3e0fbd8cc": {}
       }
     }
   }

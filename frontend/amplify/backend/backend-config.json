@@ -43,9 +43,43 @@
       "service": "Cognito-UserPool-Groups"
     }
   },
+  "function": {
+    "S3Trigger3650f3e3": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_S3Trigger3650f3e3_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger3650f3e3"
+        }
+      ]
+    },
+    "AMPLIFY_function_S3Trigger3650f3e3_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "S3Trigger3650f3e3"
+        }
+      ]
+    }
+  },
   "storage": {
-    "s31f5d006f": {
+    "s3e0fbd8cc": {
       "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ],
+          "category": "function",
+          "resourceName": "S3Trigger3650f3e3"
+        },
         {
           "attributes": [
             "UserPoolId"
@@ -62,7 +96,7 @@
         },
         {
           "attributes": [
-            "StudentGroupRole"
+            "StudentsGroupRole"
           ],
           "category": "auth",
           "resourceName": "userPoolGroups"

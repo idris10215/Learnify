@@ -27,53 +27,52 @@ const MotivationalQuote = ({ role }) => {
 
 const NewPasswordForm = ({ handleNewPasswordSubmit, newPassword, setNewPassword, loading }) => (
     <form className="space-y-6" onSubmit={handleNewPasswordSubmit}>
-      <div>
-        <label className="block font-medium text-gray-700 mb-1">New Permanent Password</label>
-        <input
-          type="password"
-          required
-          className="block w-full px-4 py-3 border-2 border-black rounded-md"
-          placeholder="Enter your new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-      </div>
-      <Button type="submit" className="w-full !py-3" disabled={loading}>
-        {loading ? 'Setting Password...' : 'Set Password & Sign In'}
-      </Button>
+        <div>
+            <label className="block font-medium text-gray-700 mb-1">New Permanent Password</label>
+            <input
+                type="password"
+                required
+                className="block w-full px-4 py-3 border-2 border-black rounded-md"
+                placeholder="Enter your new password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+            />
+        </div>
+        <Button type="submit" className="w-full !py-3" disabled={loading}>
+            {loading ? 'Setting Password...' : 'Set Password & Sign In'}
+        </Button>
     </form>
 );
 
 const LoginForm = ({ handleSignIn, email, setEmail, password, setPassword, loading }) => (
     <form className="space-y-6" onSubmit={handleSignIn}>
-      <div>
-        <label className="block font-medium text-gray-700 mb-1">Email Address</label>
-        <input
-          type="email"
-          required
-          className="block w-full px-4 py-3 border-2 border-black rounded-md"
-          placeholder="you@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label className="block font-medium text-gray-700 mb-1">Password</label>
-        <input
-          type="password"
-          required
-          className="block w-full px-4 py-3 border-2 border-black rounded-md"
-          placeholder="••••••••"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <Button type="submit" className="w-full !py-3" disabled={loading}>
-        {loading ? 'Signing In...' : 'Sign In'}
-      </Button>
+        <div>
+            <label className="block font-medium text-gray-700 mb-1">Email Address</label>
+            <input
+                type="email"
+                required
+                className="block w-full px-4 py-3 border-2 border-black rounded-md"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+        </div>
+        <div>
+            <label className="block font-medium text-gray-700 mb-1">Password</label>
+            <input
+                type="password"
+                required
+                className="block w-full px-4 py-3 border-2 border-black rounded-md"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+        </div>
+        <Button type="submit" className="w-full !py-3" disabled={loading}>
+            {loading ? 'Signing In...' : 'Sign In'}
+        </Button>
     </form>
 );
-
 
 const LoginPage = ({ role }) => {
     const navigate = useNavigate();
@@ -122,29 +121,31 @@ const LoginPage = ({ role }) => {
         setLoading(false);
     };
 
+    // --- THIS IS THE CORRECTED FUNCTION ---
     const checkRoleAndRedirect = async () => {
-        const session = await fetchAuthSession();
-        if (!session?.tokens?.accessToken?.payload) {
-            await signOut();
-            setError('Could not verify your session. Please try logging in again.');
-            return;
-        }
+        try {
+            const session = await fetchAuthSession();
+            const userGroups = session.tokens.accessToken.payload['cognito:groups'] || [];
+            const expectedGroup = role === 'Student' ? 'Students' : 'Teachers';
 
-        const userGroups = session.tokens.accessToken.payload['cognito:groups'] || [];
-        const expectedGroup = role === 'Student' ? 'Students' : 'Teachers';
-
-        if (userGroups.includes(expectedGroup)) {
-            navigate(dashboardPath);
-        } else {
-            await signOut(); 
-            if (userGroups.includes('Teachers')) {
-                navigate('/teacher-login', { state: { message: 'It looks like you have a teacher account. Please log in here.', email } });
-            } else if (userGroups.includes('Students')) {
-                navigate('/student-login', { state: { message: 'It looks like you have a student account. Please log in here.', email } });
+            if (userGroups.includes(expectedGroup)) {
+                // If the role is correct, just navigate. Let the route guards handle the rest.
+                navigate(dashboardPath);
             } else {
-                setError(`Access Denied: You do not have a valid role assigned.`);
+                // If the role is INCORRECT, we sign the user out to prevent a confusing state,
+                // and then navigate them to the correct login page with a helpful message.
+                await signOut(); 
+                if (userGroups.includes('Teachers')) {
+                    navigate('/teacher-login', { state: { message: 'It looks like you have a teacher account. Please log in here.', email } });
+                } else if (userGroups.includes('Students')) {
+                    navigate('/student-login', { state: { message: 'It looks like you have a student account. Please log in here.', email } });
+                } else {
+                    // This case is for users with no assigned group.
+                    setError(`Access Denied: You do not have a valid role assigned.`);
+                }
             }
-            
+        } catch (sessionError) {
+            setError('Could not verify your session. Please try logging in again.');
         }
     };
 
@@ -189,4 +190,3 @@ const LoginPage = ({ role }) => {
 };
 
 export default LoginPage;
-

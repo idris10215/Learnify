@@ -74,4 +74,26 @@ router.put('/:classId/assign-module', async (req, res) => {
   }
 });
 
+
+
+// ROUTE:   GET /api/classes/student/:studentId
+// DESC:    Get all classes a specific student is enrolled in
+router.get('/student/:studentId', async (req, res) => {
+  try {
+    const { studentId } = req.params;
+
+    // Find all classes where the 'studentIds' array contains the student's ID.
+    const studentClasses = await Class.find({ studentIds: studentId })
+        .populate('teacherId', 'username'); // Also fetch the teacher's name for each class
+
+    res.status(200).json(studentClasses);
+
+  } catch (error) {
+    console.error("Error fetching student's classes:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
 export default router;

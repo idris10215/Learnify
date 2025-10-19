@@ -42,7 +42,7 @@
     ],
     "userPoolGroupList": [
       "Teachers",
-      "Student"
+      "Students"
     ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
