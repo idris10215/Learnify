@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import LoginNavbar from "./components/LoginNavbar";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
-import StudentDashboard from "./pages/dashboards/StudentdashBoard";
+import StudentDashboard from "./pages/dashboards/StudentDashBoard";
 import TeacherDashboard from "./pages/dashboards/TeacherDashBoard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import PublicRoute from "./components/auth/PublicRoute";
@@ -20,6 +20,8 @@ import MyClassesPage from "./pages/MyClassesPage";
 import ClassManagementPage from "./pages/ClassManagementPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import ModuleEditorPage from "./pages/ModuleEditorPage";
+import StudentClassViewPage from "./pages/StudentClassViewPage";
+import StudentModuleViewPage from "./pages/StudentModuleViewPage";
 
 Amplify.configure({
   Auth: {
@@ -164,6 +166,22 @@ const App = ({ user }) => {
               </ProtectedRoute>
             } 
           />
+          <Route 
+              path="/student/class/:classId" 
+              element={
+                <ProtectedRoute user={user} redirectTo="/">
+                  <StudentClassViewPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/student/module/:moduleId" 
+              element={
+                <ProtectedRoute user={user} >
+                  <StudentModuleViewPage />
+                </ProtectedRoute>
+              }
+            />
         </Routes>
       </div>
     </BrowserRouter>
