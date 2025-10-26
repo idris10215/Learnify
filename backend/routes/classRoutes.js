@@ -3,7 +3,6 @@
 import express from 'express';
 import Class from '../models/Class.js';
 
-// We will also need our other models to do the 'lookup'
 import User from '../models/User.js'; 
 import Module from '../models/Module.js';
 
