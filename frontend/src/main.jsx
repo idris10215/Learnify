@@ -1,6 +1,3 @@
-// frontend/src/main.jsx
-// --- CORRECTED FOR DEPLOYMENT ---
-
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
@@ -25,11 +22,14 @@ const awsconfig = {
     },
     "aws_cognito_verification_mechanisms": ["EMAIL"],
     "aws_user_files_s3_bucket": import.meta.env.VITE_AWS_USER_FILES_S3_BUCKET,
-    "aws_user_files_s3_bucket_region": import.meta.env.VITE_AWS_PROJECT_REGION // Usually the same
+    "aws_user_files_s3_bucket_region": import.meta.env.VITE_AWS_PROJECT_REGION 
 };
 
-// 3. We pass this manually-built object to Amplify.
 Amplify.configure(awsconfig);
+
+
+// import awsconfig from './aws-exports';
+// Amplify.configure(awsconfig);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
