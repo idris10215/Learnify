@@ -24,6 +24,12 @@
       },
       "storage": {
         "s3e0fbd8cc": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3snvsp9fwgrfo",
+          "type": "cicd"
+        }
       }
     }
   }
