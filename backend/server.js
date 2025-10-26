@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import moduleRoutes from './routes/moduleRoutes.js';
 import uploadROutes from './routes/uploadRoutes.js';
 import classRoutes from './routes/classRoutes.js';
+import progressRoutes from './routes/progressRoutes.js'
 
 dotenv.config();
 
@@ -31,6 +32,8 @@ app.use('/api/modules', moduleRoutes);
 app.use('/api/upload', uploadROutes);
 
 app.use('/api/classes', classRoutes);
+
+app.use('/api/progress', progressRoutes);
 
 
 connectDB();

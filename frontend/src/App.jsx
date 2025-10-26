@@ -22,6 +22,7 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import ModuleEditorPage from "./pages/ModuleEditorPage";
 import StudentClassViewPage from "./pages/StudentClassViewPage";
 import StudentModuleViewPage from "./pages/StudentModuleViewPage";
+import ClassAnalyticsReport from "./pages/ClassAnalyticsReport";
 
 Amplify.configure({
   Auth: {
@@ -175,12 +176,20 @@ const App = ({ user }) => {
               } 
             />
             <Route 
-              path="/student/module/:moduleId" 
+              path="/student/class/:classId/module/:moduleId" 
               element={
-                <ProtectedRoute user={user} >
+                <ProtectedRoute user={user}>
                   <StudentModuleViewPage />
                 </ProtectedRoute>
               }
+            />
+            <Route 
+              path="/analytics/:classId" 
+              element={
+                <ProtectedRoute user={user} >
+                  <ClassAnalyticsReport/>
+                </ProtectedRoute>
+              } 
             />
         </Routes>
       </div>

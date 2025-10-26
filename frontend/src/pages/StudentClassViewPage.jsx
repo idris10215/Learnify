@@ -58,7 +58,7 @@ const StudentClassViewPage = () => {
               {cls.assignedModuleIds && cls.assignedModuleIds.length > 0 ? (
                 cls.assignedModuleIds.map(module => (
                   <Link
-                    to={`/student/module/${module._id}`}
+                    to={`/student/class/${cls._id}/module/${module._id}`}
                     key={module._id}
                     className="flex items-center justify-between p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-500 hover:shadow-md transition-all duration-200"
                   >

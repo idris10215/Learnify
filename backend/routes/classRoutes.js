@@ -96,4 +96,17 @@ router.get('/student/:studentId', async (req, res) => {
 
 
 
+router.get('/teacher/:teacherId', async (req, res) => {
+  try {
+    const { teacherId } = req.params;
+    // Find classes where the teacherId matches
+    const teacherClasses = await Class.find({ teacherId: teacherId });
+    res.status(200).json(teacherClasses);
+  } catch (error) {
+    console.error("Error fetching teacher's classes:", error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 export default router;

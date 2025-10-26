@@ -1,93 +1,83 @@
-// frontend/src/pages/AnalyticsPage.jsx
-
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import api from '../../services/api';
 import TeacherHeader from '../components/dashboard/TeacherHeader';
-import StatCard from '../components/dashboard/StatCard';
-import { BookCopy, Users, Award, Clock } from 'lucide-react';
+import { getCurrentUser } from '@aws-amplify/auth';
+import { Users, BookOpen } from 'lucide-react';
 
 const AnalyticsPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState({
-    moduleCount: 0,
-    studentCount: 143, // Placeholder data
-    avgScore: '88%',   // Placeholder data
-    avgEngagement: '7.5h' // Placeholder data
-  });
+  const [teacherClasses, setTeacherClasses] = useState([]);
+  const [loadingClasses, setLoadingClasses] = useState(true);
+  const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchInitialData = async () => {
+      setLoadingClasses(true);
+      setError('');
       try {
-        // We can fetch the real module count
-        const modulesResponse = await api.get("/api/modules/getAllModules");
-        
-        // In the future, we would fetch real class and student data here
-        // For now, we just update the real module count
-        setStats(prevStats => ({
-          ...prevStats,
-          moduleCount: modulesResponse.data.length,
-        }));
-
-      } catch (error) {
-        console.error("Error fetching analytics data:", error);
+        const currentUser = await getCurrentUser();
+        const currentTeacherId = currentUser.userId;
+        if (currentTeacherId) {
+          const response = await api.get(`/api/classes/teacher/${currentTeacherId}`);
+          setTeacherClasses(response.data);
+        } else {
+             setError("Could not verify teacher ID.");
+        }
+      } catch (err) {
+        console.error("Error fetching initial data:", err);
+        setError("Could not load classes.");
       } finally {
-        setLoading(false);
+        setLoadingClasses(false);
       }
     };
-    fetchStats();
+    fetchInitialData();
   }, []);
+
+  // Handle navigation when a card is clicked
+  const handleClassSelect = (classId) => {
+    navigate(`/analytics/${classId}`); // Navigate to the new dedicated report page URL
+  };
 
   return (
     <div className="bg-[#33A1E0] min-h-screen flex flex-col">
       <TeacherHeader />
       <main className="flex-1 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
-          
-          <h1 className="text-3xl font-bold text-gray-800 mb-8">Platform Analytics</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-6">Class Analytics</h1>
 
-          {loading ? (
-            <p>Loading analytics...</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* This card uses REAL data */}
-              <StatCard 
-                title="Total Modules Created" 
-                value={stats.moduleCount} 
-                subValue="Across all teachers" 
-                icon={<BookCopy size={24} />} 
-                color="green"
-              />
-
-              {/* These cards use SAMPLE data for the presentation */}
-              <StatCard 
-                title="Total Active Students" 
-                value={stats.studentCount} 
-                subValue="in 5 classes" 
-                icon={<Users size={24} />} 
-                color="blue"
-              />
-              <StatCard 
-                title="Platform Avg. Score" 
-                value={stats.avgScore} 
-                subValue="+3% this week" 
-                icon={<Award size={24} />} 
-                color="yellow"
-              />
-              <StatCard 
-                title="Avg. Engagement" 
-                value={stats.avgEngagement} 
-                subValue="weekly per student" 
-                icon={<Clock size={24} />} 
-                color="purple"
-              />
-            </div>
-          )}
-          
-          {/* We can add charts with placeholder data here later if you want! */}
-          <div className="mt-8 bg-white p-6 border-2 border-black rounded-2xl text-center text-gray-500">
-             Chart Area - Coming Soon
+          {/* --- CARD-BASED SELECTION (Now uses handleClassSelect for navigation) --- */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-gray-700 mb-3">Select a Class to View Report:</h2>
+            {loadingClasses ? (
+              <p>Loading classes...</p>
+            ) : error ? (
+               <p className="text-red-500">{error}</p>
+            ) : teacherClasses.length === 0 ? (
+               <p className="text-gray-500">You are not assigned to any classes yet.</p>
+            ) : (
+              <div className="flex space-x-4 overflow-x-auto p-5">
+                {teacherClasses.map(cls => (
+                  <button
+                    key={cls._id}
+                    onClick={() => handleClassSelect(cls._id)} // Use the navigation handler
+                    className={`flex-shrink-0 w-64 p-4 border-2 rounded-xl transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 bg-white border-black hover:shadow-[4px_4px_0_0_#000] hover:-translate-x-1 hover:-translate-y-1`}
+                  >
+                    <h3 className={`font-bold truncate mb-2 text-gray-900`}>{cls.className}</h3>
+                    <div className={`flex items-center text-xs text-gray-500`}>
+                      <Users size={14} className="mr-1.5" />
+                      <span>{cls.studentIds.length} Student(s)</span>
+                    </div>
+                     <div className={`flex items-center text-xs mt-1 text-gray-500`}>
+                      <BookOpen size={14} className="mr-1.5" />
+                      <span>{cls.assignedModuleIds.length} Module(s)</span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
-
+           {/* --- The Report Table is REMOVED --- */}
         </div>
       </main>
     </div>
