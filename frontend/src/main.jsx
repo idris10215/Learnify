@@ -1,5 +1,3 @@
-import { StrictMode } from 'react';
-
 // import awsconfig from './aws-exports';
 // Amplify.configure(awsconfig);
 
