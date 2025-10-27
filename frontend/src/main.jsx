@@ -1,10 +1,16 @@
 import { StrictMode } from 'react';
+
+// import awsconfig from './aws-exports';
+// Amplify.configure(awsconfig);
+
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 
 import { Amplify } from 'aws-amplify';
-const awsconfig = {
+
+const awsmobile = {
     "aws_project_region": import.meta.env.VITE_AWS_PROJECT_REGION,
     "aws_cognito_identity_pool_id": import.meta.env.VITE_AWS_COGNITO_IDENTITY_POOL_ID,
     "aws_cognito_region": import.meta.env.VITE_AWS_PROJECT_REGION, 
@@ -25,11 +31,12 @@ const awsconfig = {
     "aws_user_files_s3_bucket_region": import.meta.env.VITE_AWS_PROJECT_REGION 
 };
 
-Amplify.configure(awsconfig);
+// --- ADD THIS LOG ---
+// This will print the "phone book" to the browser's console.
+console.log("Attempting to configure Amplify with:", awsmobile);
+// --------------------
 
-
-// import awsconfig from './aws-exports';
-// Amplify.configure(awsconfig);
+Amplify.configure(awsmobile);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
