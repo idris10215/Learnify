@@ -46,7 +46,7 @@ const StudentDashboard = () => {
 
       <main className="p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-white mb-2">Welcome, {user?.username || 'Student'}!</h1>
+          <h1 className="text-4xl font-bold text-white mb-2">Welcome, {user?.name || 'Student'}!</h1>
           <p className="text-lg text-white/80 mb-8">Here are the classes you're enrolled in.</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
