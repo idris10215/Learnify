@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { getCurrentUser } from 'aws-amplify/auth';
 import api from '../../../services/api.js';
 
-import  Navbar  from '../../components/Navbar.jsx'; 
+import StudentHeader from '../../components/dashboard/StudentHeader.jsx';
 import { BookText, User } from 'lucide-react';
 
 const StudentDashboard = () => {
@@ -42,7 +42,7 @@ const StudentDashboard = () => {
     // As requested, the main container has the blue background
     <div className="min-h-screen bg-[#33A1E0]">
       {/* We can use the main Navbar here, it will show the user is logged in */}
-      <Navbar user={user} /> 
+      <StudentHeader user={user} /> 
 
       <main className="p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
