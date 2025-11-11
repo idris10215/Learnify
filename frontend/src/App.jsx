@@ -24,16 +24,6 @@ import StudentClassViewPage from "./pages/StudentClassViewPage";
 import StudentModuleViewPage from "./pages/StudentModuleViewPage";
 import ClassAnalyticsReport from "./pages/ClassAnalyticsReport";
 
-// Amplify.configure({
-//   Auth: {
-//     Cognito: {
-//       region: import.meta.env.VITE_AWS_REGION,
-//       userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID,
-//       userPoolClientId: import.meta.env.VITE_COGNITO_CLIENT_ID,
-//     },
-//   },
-// });
-
 const MainLayout = ({ children, user }) => (
   <>
     <Navbar user={user} />
