@@ -36,10 +36,8 @@ const StudentHeader = () => {
 
     // Define navigation links for the student dashboard
     const navLinks = [
-        { name: 'Dashboard', path: '/student-dashboard' },
-        { name: 'My Modules', path: '/student-modules' }, // Assuming a student-specific modules page
-        { name: 'My Classes', path: '/student-classes' },   // Assuming a student-specific classes page
-        // You can add more student-specific links here, e.g., 'Grades', 'Calendar', etc.
+        { name: 'Dashboard', path: '/student-dashboard' },  
+        // You can add more student-specific links here
     ];
 
     const userInitial = username.charAt(0).toUpperCase();
@@ -59,7 +57,7 @@ const StudentHeader = () => {
                             <Link 
                                 key={link.name} 
                                 to={link.path} 
-                                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${location.pathname === link.path ? 'bg-blue-500 text-white' : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'}`}
+                                className={"px-4 py-2 rounded-lg text-sm font-medium transition-colors text-gray-500 hover:bg-gray-100 hover:text-gray-900"}
                             >
                                 {link.name}
                             </Link>
@@ -79,8 +77,7 @@ const StudentHeader = () => {
                             </button>
                             {isProfileOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border-2 border-black py-2 z-20">
-                                    <Link to="/student-profile" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><User size={16} className="mr-2" /> Profile</Link>
-                                    <button onClick={handleSignOut} className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                    <button onClick={handleSignOut} className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 mouse-pointer">
                                         <LogOut size={16} className="mr-2" /> Logout
                                     </button>
                                 </div>
@@ -110,9 +107,7 @@ const StudentHeader = () => {
                             </Link>
                         ))}
                         {/* Mobile-only profile and logout */}
-                        <Link to="/student-profile" className="block text-base font-medium text-gray-700 hover:bg-gray-50 p-3 rounded-lg" onClick={() => setIsMobileMenuOpen(false)}>
-                            <User size={16} className="mr-2 inline-block" /> Profile
-                        </Link>
+                        
                         <button onClick={handleSignOut} className="w-full text-left block text-base font-medium text-red-600 hover:bg-red-50 p-3 rounded-lg">
                             <LogOut size={16} className="mr-2 inline-block" /> Logout
                         </button>

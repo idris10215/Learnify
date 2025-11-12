@@ -2,23 +2,24 @@
 // --- UPGRADED WITH PROGRESS TRACKING ---
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getUrl } from "aws-amplify/storage";
 import api from "../../services/api";
 
-import Navbar from "../components/Navbar";
+import StudentHeader from "../components/dashboard/StudentHeader";
 import Button from "../components/ui/Button";
-import { Download, CheckSquare, Check } from "lucide-react";
+import { Download, CheckSquare, Check, ChevronLeft } from "lucide-react";
 import { getCurrentUser } from "aws-amplify/auth";
 
 const StudentModuleViewPage = () => {
+  const navigate = useNavigate();
+
   const { moduleId, classId } = useParams();
   const [user, setUser] = useState(null);
   const [module, setModule] = useState(null);
   const [progress, setProgress] = useState(null); // State to hold completion data
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -115,9 +116,18 @@ const StudentModuleViewPage = () => {
 
   return (
     <div className="min-h-screen bg-[#33A1E0]">
-      <Navbar user={user} />
+      <StudentHeader user={user} />
       <main className="p-4 sm:p-6 lg:p-8">
         <div className="max-w-4xl mx-auto">
+          {/* --- NEW: Go Back Button --- */}
+          <button
+            onClick={() => navigate(-1)} // This goes back one step in history
+            className="flex items-center justify-center text-white/80 hover:text-white mb-6 transition-colors  duration-200 cursor-pointer text-[20px]"
+          >
+            <ChevronLeft size={28} />
+            Back
+          </button>
+          {/* --- END NEW: Go Back Button --- */}
           <div className="bg-white/90 backdrop-blur-sm p-8 border-2 border-white/50 rounded-2xl shadow-lg">
             <h1 className="text-3xl font-bold text-gray-900">{module.title}</h1>
             <p className="text-gray-600 mt-2 mb-6">{module.description}</p>
