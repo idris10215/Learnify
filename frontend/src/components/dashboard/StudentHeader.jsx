@@ -65,9 +65,9 @@ const StudentHeader = () => {
                     </nav>
                     {/* Right-side Icons & Profile */}
                     <div className="flex items-center space-x-4">
-                        <button className="relative p-2 rounded-full hover:bg-gray-100">
+                        {/* <button className="relative p-2 rounded-full hover:bg-gray-100">
                             <Bell size={24} />
-                        </button>
+                        </button> */}
                         <div className="relative">
                             <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex items-center space-x-2">
                                 {/* Using the userInitial for the profile avatar */}

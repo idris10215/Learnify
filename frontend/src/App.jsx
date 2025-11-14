@@ -23,6 +23,9 @@ import ModuleEditorPage from "./pages/ModuleEditorPage";
 import StudentClassViewPage from "./pages/StudentClassViewPage";
 import StudentModuleViewPage from "./pages/StudentModuleViewPage";
 import ClassAnalyticsReport from "./pages/ClassAnalyticsReport";
+import ForStudentsPage from "./pages/ForStudentsPage";
+import ForTeachersPage from "./pages/ForTeachersPage";
+import AboutPage from "./pages/AboutPage";
 
 const MainLayout = ({ children, user }) => (
   <>
@@ -181,6 +184,31 @@ const App = ({ user }) => {
                 </ProtectedRoute>
               } 
             />
+            <Route 
+              path="/for-students" 
+              element={
+                <PublicRoute>
+                  <ForStudentsPage />
+                </PublicRoute>
+              } 
+            />
+            <Route 
+              path="/for-teachers" 
+              element={
+                <PublicRoute>
+                  <ForTeachersPage />
+                </PublicRoute>
+              } 
+            />
+            <Route 
+              path="about-us" 
+              element={
+                <PublicRoute>
+                  <AboutPage />
+                </PublicRoute>
+              } 
+            />
+            
         </Routes>
       </div>
     </BrowserRouter>

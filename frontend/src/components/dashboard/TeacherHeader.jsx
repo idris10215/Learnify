@@ -49,16 +49,16 @@ const TeacherHeader = () => {
                         ))}
                     </nav>
                     <div className="flex items-center space-x-4">
-                        <button className="relative p-2 rounded-full hover:bg-gray-100">
+                        {/* <button className="relative p-2 rounded-full hover:bg-gray-100">
                             <Bell size={24} />
-                        </button>
+                        </button> */}
                         <div className="relative">
                             <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="flex items-center space-x-2">
                                 <img src={`https://placehold.co/40x40/E2E8F0/4A5568?text=${teacherName.charAt(0)}`} alt="Profile" className="h-10 w-10 rounded-full border-2 border-gray-300" />
                             </button>
                             {isProfileOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border-2 border-black py-2 z-20">
-                                    <Link to="/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><User size={16} className="mr-2" /> Profile</Link>
+                                    
                                     <button onClick={handleSignOut} className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                                         <LogOut size={16} className="mr-2" /> Logout
                                     </button>

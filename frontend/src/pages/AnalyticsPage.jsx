@@ -44,11 +44,11 @@ const AnalyticsPage = () => {
       <TeacherHeader />
       <main className="flex-1 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">Class Analytics</h1>
+          <h1 className="text-3xl font-bold text-white mb-6">Class Analytics</h1>
 
           {/* --- CARD-BASED SELECTION (Now uses handleClassSelect for navigation) --- */}
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-700 mb-3">Select a Class to View Report:</h2>
+            <h2 className="text-xl font-semibold text-white mb-3">Select a Class to View Report:</h2>
             {loadingClasses ? (
               <p>Loading classes...</p>
             ) : error ? (

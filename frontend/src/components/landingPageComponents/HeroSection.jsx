@@ -20,10 +20,10 @@ const HeroSection = () => {
                 </div>
 
                 <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link to="/student-login">
+                    <Link to="/for-students">
                       <Button className="w-full sm:w-auto">Start Your Learning Journey</Button>
                     </Link>
-                    <Link to="/teacher-login">
+                    <Link to="/for-teachers">
                       <Button className="w-full sm:w-auto">Empower Your Classroom</Button>
                     </Link>
                 </div>

@@ -1,19 +1,21 @@
+// frontend/src/components/Footer.jsx - REVISED: No 3D, Compact Layout, Not Empty
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => (
-    // The footer now has a white background with the 3D top border
-    <footer className="bg-white text-gray-800 relative pt-2">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gray-950"></div>
-
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    // Clean, flat footer with adjusted spacing
+    <footer className="bg-white text-gray-800 py-8 px-4 sm:px-6 lg:px-8 mt-16"> {/* Reduced py and mt */}
+        
+        <div className="max-w-7xl mx-auto">
+            {/* Adjusted grid to 3 columns on medium screens to remove excessive empty space */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-8"> 
                 {/* Logo and Description Section */}
                 <div className="col-span-2 md:col-span-1">
                     <h1 className="text-3xl font-bold">
-                      Learnify<span className="text-blue-500">.</span>
+                        Learnify<span className="text-blue-500">.</span>
                     </h1>
-                    <p className="mt-4 text-gray-500 text-sm">
+                    <p className="mt-2 text-gray-500 text-sm max-w-xs"> {/* Reduced mt, added max-w */}
                         Empowering education through AI-powered personalized learning experiences.
                     </p>
                 </div>
@@ -21,35 +23,22 @@ const Footer = () => (
                 {/* Platform Links */}
                 <div>
                     <h3 className="text-sm font-semibold tracking-wider uppercase text-gray-500">Platform</h3>
-                    <ul className="mt-4 space-y-2">
-                        <li><Link to="/student-experience" className="text-gray-600 hover:text-blue-500 transition-colors">Student Experience</Link></li>
-                        <li><Link to="/teacher-tools" className="text-gray-600 hover:text-blue-500 transition-colors">Teacher Tools</Link></li>
-                        <li><Link to="/admin-dashboard" className="text-gray-600 hover:text-blue-500 transition-colors">Admin Dashboard</Link></li>
-                        <li><Link to="/pricing" className="text-gray-600 hover:text-blue-500 transition-colors">Pricing</Link></li>
-                    </ul>
-                </div>
-
-                {/* Resources Links */}
-                <div>
-                    <h3 className="text-sm font-semibold tracking-wider uppercase text-gray-500">Resources</h3>
-                    <ul className="mt-4 space-y-2">
-                        <li><Link to="/blog" className="text-gray-600 hover:text-blue-500 transition-colors">Blog</Link></li>
-                        <li><Link to="/help-center" className="text-gray-600 hover:text-blue-500 transition-colors">Help Center</Link></li>
-                        <li><Link to="/community" className="text-gray-600 hover:text-blue-500 transition-colors">Community</Link></li>
+                    <ul className="mt-3 space-y-1"> {/* Reduced mt and space-y */}
+                        <li><Link to="/for-students" className="text-gray-600 hover:text-blue-500 transition-colors text-sm">For Students</Link></li>
+                        <li><Link to="/for-teachers" className="text-gray-600 hover:text-blue-500 transition-colors text-sm">For Teachers</Link></li>
                     </ul>
                 </div>
 
                 {/* Company Links */}
-                <div>
+                <div className="col-span-1">
                     <h3 className="text-sm font-semibold tracking-wider uppercase text-gray-500">Company</h3>
-                    <ul className="mt-4 space-y-2">
-                        <li><Link to="/about" className="text-gray-600 hover:text-blue-500 transition-colors">About Us</Link></li>
-                        <li><Link to="/careers" className="text-gray-600 hover:text-blue-500 transition-colors">Careers</Link></li>
-                        <li><Link to="/contact" className="text-gray-600 hover:text-blue-500 transition-colors">Contact</Link></li>
+                    <ul className="mt-3 space-y-1"> {/* Reduced mt and space-y */}
+                        <li><Link to="/about-us" className="text-gray-600 hover:text-blue-500 transition-colors text-sm">About Us</Link></li>
+                        
                     </ul>
                 </div>
             </div>
-            <div className="mt-12 border-t border-gray-200 pt-8 text-center">
+            <div className="mt-8 border-t border-gray-200 pt-6 text-center"> {/* Reduced mt and pt */}
                 <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Learnify. All rights reserved.</p>
             </div>
         </div>
