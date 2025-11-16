@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Amplify } from "aws-amplify";
+// import { Amplify } from "aws-amplify"; // Amplify config should be done globally, not here
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -27,6 +27,7 @@ import ForStudentsPage from "./pages/ForStudentsPage";
 import ForTeachersPage from "./pages/ForTeachersPage";
 import AboutPage from "./pages/AboutPage";
 
+// MainLayout with Navbar and Footer
 const MainLayout = ({ children, user }) => (
   <>
     <Navbar user={user} />
@@ -35,6 +36,7 @@ const MainLayout = ({ children, user }) => (
   </>
 );
 
+// AuthLayout with LoginNavbar (for login pages)
 const AuthLayout = ({ children }) => (
   <div className="flex flex-col min-h-screen bg-gray-100">
     <LoginNavbar />
@@ -48,6 +50,7 @@ const App = ({ user }) => {
     <BrowserRouter>
       <div className="bg-gray-50 text-gray-900 font-sans">
         <Routes>
+          {/* Public Routes with MainLayout (Navbar, Footer) */}
           <Route
             path="/"
             element={
@@ -56,11 +59,36 @@ const App = ({ user }) => {
               </MainLayout>
             }
           />
+          <Route
+            path="/about-us"
+            element={
+              <PublicRoute user={user}>
+                  <AboutPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/for-students"
+            element={
+              <PublicRoute user={user}>
+                  <ForStudentsPage user={user} />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/for-teachers"
+            element={
+              <PublicRoute user={user}>
+                  <ForTeachersPage user={user} />
+              </PublicRoute>
+            }
+          />
 
+          {/* Login Pages - Wrapped in AuthLayout (LoginNavbar) and PublicRoute */}
           <Route
             path="/teacher-login"
             element={
-              <PublicRoute user={user} redirectTo="/teacher-dashboard">
+              <PublicRoute user={user} redirectTo={user?.role === 'Teacher' ? '/teacher-dashboard' : null}>
                 <AuthLayout>
                   <LoginPage role="Teacher" />
                 </AuthLayout>
@@ -70,7 +98,7 @@ const App = ({ user }) => {
           <Route
             path="/student-login"
             element={
-              <PublicRoute user={user} redirectTo="/student-dashboard">
+              <PublicRoute user={user} redirectTo={user?.role === 'Student' ? '/student-dashboard' : null}>
                 <AuthLayout>
                   <LoginPage role="Student" />
                 </AuthLayout>
@@ -78,18 +106,37 @@ const App = ({ user }) => {
             }
           />
 
+          {/* Protected Routes - Student (no external layout, pages manage their own UI) */}
           <Route
             path="/student-dashboard"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Student']}>
                 <StudentDashboard />
               </ProtectedRoute>
             }
           />
           <Route
+            path="/student/class/:classId"
+            element={
+              <ProtectedRoute user={user} allowedRoles={['Student']}>
+                <StudentClassViewPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/student/class/:classId/module/:moduleId"
+            element={
+              <ProtectedRoute user={user} allowedRoles={['Student']}>
+                <StudentModuleViewPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Protected Routes - Teacher (no external layout, pages manage their own UI) */}
+          <Route
             path="/teacher-dashboard"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <TeacherDashboard />
               </ProtectedRoute>
             }
@@ -97,7 +144,7 @@ const App = ({ user }) => {
           <Route
             path="/create-module"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <CreateModulePage />
               </ProtectedRoute>
             }
@@ -105,7 +152,7 @@ const App = ({ user }) => {
           <Route
             path="/add-sections"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <AddSectionsPage />
               </ProtectedRoute>
             }
@@ -113,25 +160,31 @@ const App = ({ user }) => {
           <Route
             path="/teacher-modules"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <ModuleLibraryPage />
               </ProtectedRoute>
             }
           />
-
-          {/* This is the page for viewing a SINGLE module */}
           <Route
             path="/teacher-modules/:moduleId"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <ModuleViewerPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/teacher-modules/:moduleId/edit"
+            element={
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
+                <ModuleEditorPage />
               </ProtectedRoute>
             }
           />
           <Route
             path="/teacher-classes"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <MyClassesPage />
               </ProtectedRoute>
             }
@@ -139,76 +192,30 @@ const App = ({ user }) => {
           <Route
             path="/teacher-classes/:classId"
             element={
-              <ProtectedRoute user={user}>
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <ClassManagementPage />
               </ProtectedRoute>
             }
           />
-          <Route 
-            path="/analytics" 
+          <Route
+            path="/analytics"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
                 <AnalyticsPage />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/teacher-modules/:moduleId/edit" 
+          <Route
+            path="/analytics/:classId"
             element={
-              <ProtectedRoute user={user} redirectTo="/">
-                <ModuleEditorPage />
+              <ProtectedRoute user={user} allowedRoles={['Teacher']}>
+                <ClassAnalyticsReport />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-              path="/student/class/:classId" 
-              element={
-                <ProtectedRoute user={user} redirectTo="/">
-                  <StudentClassViewPage />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/student/class/:classId/module/:moduleId" 
-              element={
-                <ProtectedRoute user={user}>
-                  <StudentModuleViewPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route 
-              path="/analytics/:classId" 
-              element={
-                <ProtectedRoute user={user} >
-                  <ClassAnalyticsReport/>
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/for-students" 
-              element={
-                <PublicRoute>
-                  <ForStudentsPage />
-                </PublicRoute>
-              } 
-            />
-            <Route 
-              path="/for-teachers" 
-              element={
-                <PublicRoute>
-                  <ForTeachersPage />
-                </PublicRoute>
-              } 
-            />
-            <Route 
-              path="about-us" 
-              element={
-                <PublicRoute>
-                  <AboutPage />
-                </PublicRoute>
-              } 
-            />
-            
+
+          {/* Fallback Route for 404 */}
+          <Route path="*" element={<MainLayout user={user}><h1 className="text-4xl text-center py-20">404 - Page Not Found</h1></MainLayout>} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -13,6 +13,13 @@ const Navbar = ({ user }) => {
     useEffect(() => {
         const fetchName = async () => {
             try {
+                // Check if user object from props already has the name or is available
+                if (user && user.name) {
+                    setName(user.name);
+                    return;
+                }
+
+                // Fallback to fetching if not in props (e.g., initial load or user object not fully populated yet)
                 const currentUser = await getCurrentUser();
                 const attributes = await fetchUserAttributes(currentUser);
                 const fetchedName = attributes.name || 'User';
@@ -23,7 +30,7 @@ const Navbar = ({ user }) => {
             }
         };
         fetchName();
-    })
+    }, [user]); // Add user to dependency array so it re-runs if user prop changes
 
     const handleSignOut = async () => {
         try {
@@ -35,7 +42,8 @@ const Navbar = ({ user }) => {
         }
     };
     
-    const dashboardPath = user?.role === 'Students' ? '/student-dashboard' : '/teacher-dashboard';
+    // THE FIX IS HERE: Changed 'Students' to 'Student'
+    const dashboardPath = user?.role === 'Student' ? '/student-dashboard' : '/teacher-dashboard';
     const userInitial = name.charAt(0).toUpperCase() || 'U';
 
     return (
@@ -44,7 +52,7 @@ const Navbar = ({ user }) => {
                 <div className="flex items-center justify-between h-16">
                     <Link to="/">
                         <h1 className="text-3xl font-bold text-gray-800">
-                          Learnify<span className="text-blue-500">.</span>
+                            Learnify<span className="text-blue-500">.</span>
                         </h1>
                     </Link>
 
@@ -87,10 +95,10 @@ const Navbar = ({ user }) => {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                 <div className="lg:hidden absolute top-0 left-0 w-full bg-white z-50 border-b-2 border-black shadow-lg">
-                     <div className="px-4 pt-4 pb-6">
+                <div className="lg:hidden absolute top-0 left-0 w-full bg-white z-50 border-b-2 border-black shadow-lg">
+                    <div className="px-4 pt-4 pb-6">
                         <div className="flex items-center justify-between mb-4">
-                             <Link to="/">
+                            <Link to="/">
                                 <h1 className="text-3xl font-bold text-gray-800">Learnify<span className="text-blue-500">.</span></h1>
                             </Link>
                             <button onClick={() => setIsMobileMenuOpen(false)}>
@@ -98,7 +106,7 @@ const Navbar = ({ user }) => {
                             </button>
                         </div>
                         <div className="flex flex-col space-y-4">
-                             {user ? (
+                            {user ? (
                                 <>
                                     <Link to={dashboardPath}><Button className="w-full">Go to Dashboard</Button></Link>
                                     <Button onClick={handleSignOut} className="w-full !bg-red-500 text-white border-red-500">Logout</Button>
@@ -110,12 +118,11 @@ const Navbar = ({ user }) => {
                                 </>
                             )}
                         </div>
-                     </div>
-                 </div>
+                    </div>
+                </div>
             )}
         </header>
     );
 };
 
 export default Navbar;
-

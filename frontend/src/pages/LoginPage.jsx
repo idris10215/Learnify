@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { signIn, confirmSignIn, fetchAuthSession, signOut, updateUserAttributes } from 'aws-amplify/auth';
 import Button from '../components/ui/Button';
-import { quotes } from '../data/quotes';
+import { quotes } from '../data/quotes'; // Assuming this path is correct
+
+// --- Helper Components (No Changes Needed Here) ---
 
 const MotivationalQuote = ({ role }) => {
     const quoteList = role === 'Teacher' ? quotes.teacher : quotes.student;
@@ -25,7 +27,7 @@ const MotivationalQuote = ({ role }) => {
     );
 };
 
-const NewPasswordForm = ({ handleNewPasswordSubmit, newPassword, setNewPassword,name, setName, loading }) => (
+const NewPasswordForm = ({ handleNewPasswordSubmit, newPassword, setNewPassword, name, setName, loading }) => (
     <form className="space-y-6" onSubmit={handleNewPasswordSubmit}>
         <div>
             <label className="block font-medium text-gray-700 mb-1">Your Full Name</label>
@@ -34,8 +36,8 @@ const NewPasswordForm = ({ handleNewPasswordSubmit, newPassword, setNewPassword,
                 required
                 className="block w-full px-4 py-3 border-2 border-black rounded-md"
                 placeholder="Enter your full name"
-                value={name} // Bind to name state
-                onChange={(e) => setName(e.target.value)} // Update name state
+                value={name}
+                onChange={(e) => setName(e.target.value)}
             />
         </div>
         <div>
@@ -85,6 +87,8 @@ const LoginForm = ({ handleSignIn, email, setEmail, password, setPassword, loadi
     </form>
 );
 
+// --- LoginPage Component (Main Changes Here) ---
+
 const LoginPage = ({ role }) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -101,23 +105,41 @@ const LoginPage = ({ role }) => {
     
     const dashboardPath = role === 'Student' ? '/student-dashboard' : '/teacher-dashboard';
 
+    // This useEffect will clear infoMessage after a short delay
+    useEffect(() => {
+        if (infoMessage) {
+            const timer = setTimeout(() => setInfoMessage(''), 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [infoMessage]);
+
+
     const handleSignIn = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
-        setInfoMessage('');
+        setInfoMessage(''); // Clear previous info messages on new attempt
         try {
             const { isSignedIn, nextStep } = await signIn({ username: email, password });
 
             if (isSignedIn) {
-                await checkRoleAndRedirect();
+                // If signed in, check role and redirect.
+                // Ampliy's signIn handles session replacement automatically.
+                await verifyRoleAndNavigate(); 
             } else if (nextStep.signInStep === 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED') {
                 setRequiresNewPassword(true);
             }
+            // Add other nextStep handling if needed (e.g., MFA)
         } catch (error) {
-            setError(error.message || 'An unknown error occurred');
+            // Handle common Amplify errors specifically
+            if (error.name === 'UserNotFoundException' || error.name === 'NotAuthorizedException') {
+                setError('Incorrect email or password.');
+            } else {
+                setError(error.message || 'An unknown error occurred during sign in.');
+            }
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     const handleNewPasswordSubmit = async (e) => {
@@ -135,38 +157,48 @@ const LoginPage = ({ role }) => {
                 });
             }
 
-            await checkRoleAndRedirect();
+            // After setting new password, verify role and navigate
+            await verifyRoleAndNavigate();
         } catch (error) {
             setError(error.message || 'Failed to set new password.');
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
-    // --- THIS IS THE CORRECTED FUNCTION ---
-    const checkRoleAndRedirect = async () => {
+    /**
+     * Verifies the user's group/role after successful authentication
+     * and navigates to the appropriate dashboard. If the role doesn't match
+     * the intended login page's role, it gives an error but keeps them logged in.
+     */
+    const verifyRoleAndNavigate = async () => {
         try {
             const session = await fetchAuthSession();
             const userGroups = session.tokens.accessToken.payload['cognito:groups'] || [];
             const expectedGroup = role === 'Student' ? 'Students' : 'Teachers';
 
             if (userGroups.includes(expectedGroup)) {
-                // If the role is correct, just navigate. Let the route guards handle the rest.
-                navigate(dashboardPath);
+                // User has the correct group for this login page's role, navigate to their dashboard.
+                navigate(dashboardPath, { replace: true });
             } else {
-                // If the role is INCORRECT, we sign the user out to prevent a confusing state,
-                // and then navigate them to the correct login page with a helpful message.
-                await signOut(); 
-                if (userGroups.includes('Teachers')) {
-                    navigate('/teacher-login', { state: { message: 'It looks like you have a teacher account. Please log in here.', email } });
-                } else if (userGroups.includes('Students')) {
-                    navigate('/student-login', { state: { message: 'It looks like you have a student account. Please log in here.', email } });
-                } else {
-                    // This case is for users with no assigned group.
-                    setError(`Access Denied: You do not have a valid role assigned.`);
-                }
+                // User logged in, but their group does not match the role of THIS login page.
+                // E.g., they logged into /teacher-login with student credentials.
+                // DO NOT sign out. Just show an error and let them decide.
+                let actualRole = 'unknown';
+                if (userGroups.includes('Students')) actualRole = 'Student';
+                else if (userGroups.includes('Teachers')) actualRole = 'Teacher';
+
+                setError(`You logged in successfully, but your account is for a ${actualRole}. Please use the ${actualRole} login page.`);
+                // Optionally, navigate them to their OWN dashboard, or keep them on the login page
+                // to explicitly choose the correct login path.
+                // For simplicity as per your request, we just show an error on this page.
+                // The 'withAuth' HOC will still have their correct role stored.
             }
         } catch (sessionError) {
-            setError('Could not verify your session. Please try logging in again.');
+            console.error('Error fetching session after login:', sessionError);
+            setError('Could not verify your account role. Please try logging in again.');
+            // A session error after successful signIn is unusual; force signOut.
+            try { await signOut(); } catch (e) { /* ignore */ }
         }
     };
 
@@ -202,6 +234,14 @@ const LoginPage = ({ role }) => {
                                     setPassword={setPassword}
                                     loading={loading}
                                 />
+                                {/* Optional: Link to switch to the other login page */}
+                                <div className="mt-6 text-center text-gray-600">
+                                    {role === 'Student' ? (
+                                        <p>Are you a teacher? <Link to="/teacher-login" className="text-blue-600 hover:underline">Log in here.</Link></p>
+                                    ) : (
+                                        <p>Are you a student? <Link to="/student-login" className="text-blue-600 hover:underline">Log in here.</Link></p>
+                                    )}
+                                </div>
                             </>
                         )}
                     </div>

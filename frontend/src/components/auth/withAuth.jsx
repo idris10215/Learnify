@@ -1,59 +1,63 @@
+// frontend/src/components/auth/withAuth.jsx - (The Brain)
 import React, { useState, useEffect } from 'react';
 import { Hub } from 'aws-amplify/utils';
-import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
+import { fetchAuthSession, getCurrentUser, signOut } from 'aws-amplify/auth';
 
-// This is a Higher-Order Component (HOC). It's a function that takes a component
-// (our main App) and returns a new component with the authentication logic.
 const withAuth = (WrappedComponent) => {
   return (props) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(null); // Holds { username, userId, email, role, groups } or null
     const [loading, setLoading] = useState(true);
 
-    // This function checks for an active session with AWS Cognito.
     const checkUser = async () => {
       setLoading(true);
       try {
-        const session = await fetchAuthSession();
-        const currentUser = await getCurrentUser();
-        const groups = session.tokens.accessToken.payload['cognito:groups'] || [];
-        
-        // We store the complete user object, including their role.
-        setUser({ ...currentUser, role: groups[0] }); 
+        const session = await fetchAuthSession(); // Checks for active session tokens
+        const currentUser = await getCurrentUser(); // Gets basic user info (username, userId)
+        const groups = session.tokens.accessToken.payload['cognito:groups'] || []; // Gets user groups from token
+
+        let userRole = null;
+        if (groups.includes('Teachers')) {
+          userRole = 'Teacher'; // Assign primary role
+        } else if (groups.includes('Students')) {
+          userRole = 'Student'; // Assign primary role
+        }
+
+        setUser({ 
+          ...currentUser, 
+          role: userRole, 
+          groups: groups 
+        }); 
       } catch (error) {
-        // If there's any error, we know the user is logged out.
-        setUser(null);
+        setUser(null); // No active user
+        try { await signOut(); } catch (e) { /* ignore error on sign out if already logged out */ }
       }
       setLoading(false);
     };
 
     useEffect(() => {
-      // The Hub listener is our real-time "security radio".
       const hubListener = (data) => {
         switch (data.payload.event) {
-          case 'signedIn':
-            checkUser();
-            break;
-          case 'signedOut':
-            setUser(null);
+          case 'signedIn': checkUser(); break;
+          case 'signedOut': setUser(null); break;
+          case 'tokenRefresh_failure': 
+            console.warn("Token refresh failed. Forcing sign out.");
+            signOut(); 
+            setUser(null); 
             break;
         }
       };
 
       const unsubscribe = Hub.listen('auth', hubListener);
-      checkUser(); // Check user status on initial load.
-
-      // Cleanup the listener when the app closes.
-      return () => unsubscribe();
+      checkUser(); // Initial check on app load
+      return () => unsubscribe(); // Clean up listener
     }, []);
 
     if (loading) {
-      return <div className="flex items-center justify-center h-screen">Loading...</div>;
+      return <div className="flex items-center justify-center h-screen bg-[#33A1E0] text-white">Loading...</div>;
     }
 
-    // Render the main App component, passing the user state down as a prop.
-    return <WrappedComponent {...props} user={user} />;
+    return <WrappedComponent {...props} user={user} />; // Pass the 'user' object to App.jsx
   };
 };
 
 export default withAuth;
-

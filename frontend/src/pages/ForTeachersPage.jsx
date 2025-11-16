@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import { ChevronLeft, BarChart2, Users, Edit, Cloud } from 'lucide-react'; // Icons for features
 
-const ForTeachersPage = () => {
+// Receive the 'user' prop
+const ForTeachersPage = ({ user }) => { 
     return (
         <div className="min-h-screen bg-[#33A1E0] text-white flex flex-col"> {/* Corrected to blue theme */}
             {/* Back to Home Button */}
@@ -50,19 +51,29 @@ const ForTeachersPage = () => {
                     />
                 </div>
 
-                {/* Call-to-Action */}
+                {/* Call-to-Action - DYNAMIC BUTTON HERE */}
                 <h2 className="text-4xl font-bold mb-6">Ready to Revolutionize Your Teaching?</h2>
-                <Link to="/teacher-login">
-                    <Button className="bg-white text-gray-800 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg shadow-md">
-                        Sign In as Teacher
-                    </Button>
-                </Link>
+                {user && user.role === 'Teacher' ? (
+                    // If logged in as a teacher, show "Go to Dashboard"
+                    <Link to="/teacher-dashboard">
+                        <Button className="bg-green-600 text-white hover:bg-green-700 flex items-center px-6 py-3 rounded-lg text-xl transition duration-300 ease-in-out shadow-lg">
+                            Go to Your Teacher Dashboard
+                        </Button>
+                    </Link>
+                ) : (
+                    // If not logged in, or logged in as a student, show "Sign In as Teacher"
+                    <Link to="/teacher-login">
+                        <Button className="bg-white text-gray-800 hover:bg-gray-100 flex items-center px-6 py-3 rounded-lg text-xl transition duration-300 ease-in-out shadow-lg">
+                            Sign In as Teacher
+                        </Button>
+                    </Link>
+                )}
             </main>
         </div>
     );
 };
 
-// Helper component for consistent feature card styling
+// Helper component for consistent feature card styling (No changes needed)
 const FeatureCard = ({ icon, title, description }) => (
     // This is the simple card styling, no explicit 3D shadow or thick border on these feature cards.
     <div className="bg-white text-gray-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
