@@ -10,21 +10,31 @@ import {
   Clock,
   ChevronRight,
 } from "lucide-react";
+import { getCurrentUser, fetchUserAttributes } from "aws-amplify/auth";
+
 import api from "../../../services/api";
 import TeacherHeader from "../../components/dashboard/TeacherHeader";
 import StatCard from "../../components/dashboard/StatCard";
 import DashboardCard from "../../components/ui/DashboardCard";
 import MyClassesWidget from "../../components/dashboard/MyClassesWidget";
 
+
 const TeacherDashboard = () => {
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState('Teacher');
 
   useEffect(() => {
     const fetchModules = async () => {
       try {
         const response = await api.get("/api/modules/getAllModules");
         setModules(response.data);
+
+        const currentUser = await getCurrentUser();
+        const attributes = await fetchUserAttributes(currentUser);
+        const fetchedName = attributes.name || 'Teacher';
+        setName(fetchedName);
+
       } catch (error) {
         console.error("Error fetching modules:", error);
       } finally {
@@ -40,7 +50,7 @@ const TeacherDashboard = () => {
       <main className="flex-1 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto space-y-8">
           <h2 className="text-3xl font-bold text-gray-800">
-            Here's your mission control for today, Mohsin Abbasi.
+            Here's your mission control for today, {name}!
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

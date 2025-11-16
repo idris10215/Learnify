@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getCurrentUser } from 'aws-amplify/auth';
+import { getCurrentUser, fetchUserAttributes } from 'aws-amplify/auth';
 import api from '../../../services/api.js';
 
 import StudentHeader from '../../components/dashboard/StudentHeader.jsx';
@@ -13,6 +13,7 @@ const StudentDashboard = () => {
   const [user, setUser] = useState(null);
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState('Student');
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -20,6 +21,11 @@ const StudentDashboard = () => {
         // 1. Get the currently logged-in user from Amplify
         const currentUser = await getCurrentUser();
         setUser(currentUser);
+
+        const attributes = await fetchUserAttributes(currentUser);
+
+        const fetchedName = attributes.name || 'Student';
+        setName(fetchedName);
         
         // 2. Use the user's ID to fetch their specific classes from our backend
         const response = await api.get(`/api/classes/student/${currentUser.userId}`);
@@ -46,7 +52,7 @@ const StudentDashboard = () => {
 
       <main className="p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-white mb-2">Welcome, {user?.username || 'Student'}!</h1>
+          <h1 className="text-4xl font-bold text-white mb-2">Welcome, {name}!</h1>
           <p className="text-lg text-white/80 mb-8">Here are the classes you're enrolled in.</p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -69,7 +75,7 @@ const StudentDashboard = () => {
                   </div>
                   <div className="mt-6">
                       <Link to={`/student/class/${cls._id}`} className="w-full">
-                        <button className="w-full bg-black text-white font-bold py-3 px-4 rounded-lg transition-transform duration-200 hover:scale-105">
+                        <button className="w-full bg-black text-white font-bold py-3 px-4 rounded-lg transition-transform duration-200 hover:scale-105 cursor-pointer">
                             View Class
                         </button>
                       </Link>

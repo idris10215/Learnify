@@ -1,7 +1,7 @@
 // frontend/src/components/dashboard/TeacherHeader.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { signOut } from 'aws-amplify/auth';
+import { signOut, getCurrentUser, fetchUserAttributes } from 'aws-amplify/auth';
 import { Bell, User, LogOut, Menu } from 'lucide-react';
 
 const TeacherHeader = () => {
@@ -9,7 +9,24 @@ const TeacherHeader = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-    const teacherName = "Sarah"; 
+    const [teacherName, setTeacherName] = useState('Teacher');
+
+    useEffect(() => {
+        const fetchTeacherName = async () => {
+            try {
+                const user = await getCurrentUser();
+                const attributes = await fetchUserAttributes(user);
+                const fetchedName = attributes.name || 'Teacher';
+                setTeacherName(fetchedName);
+            }
+            catch (error) { 
+                console.error("Error fetching current user for header:", error);
+                setTeacherName('Teacher'); // Fallback if user not found or error
+            }
+        };
+        fetchTeacherName();
+    })
+
 
     const handleSignOut = async () => {
         try {

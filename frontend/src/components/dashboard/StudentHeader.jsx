@@ -1,13 +1,14 @@
 // frontend/src/components/dashboard/StudentHeader.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { signOut, getCurrentUser } from 'aws-amplify/auth'; // Import getCurrentUser
+import { signOut, getCurrentUser, fetchUserAttributes } from 'aws-amplify/auth'; // Import getCurrentUser
 import { Bell, User, LogOut, Menu } from 'lucide-react';
 
 const StudentHeader = () => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [username, setUsername] = useState('Student'); // State to hold the student's username
+    const [name, setName] = useState('Student');
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -16,6 +17,11 @@ const StudentHeader = () => {
             try {
                 const user = await getCurrentUser();
                 setUsername(user.username || 'Student'); // Set username from Amplify
+
+                const attributes = await fetchUserAttributes(user);
+                const fetchedName = attributes.name || 'Student';
+                setName(fetchedName);
+
             } catch (error) {
                 console.error("Error fetching current user for header:", error);
                 setUsername('Student'); // Fallback if user not found or error
@@ -40,7 +46,7 @@ const StudentHeader = () => {
         // You can add more student-specific links here
     ];
 
-    const userInitial = username.charAt(0).toUpperCase();
+    const userInitial = name.charAt(0).toUpperCase();
 
     return (
         <header className="bg-white sticky top-0 z-50 border-b-2 border-black">

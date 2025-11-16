@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { signIn, confirmSignIn, fetchAuthSession, signOut } from 'aws-amplify/auth';
+import { signIn, confirmSignIn, fetchAuthSession, signOut, updateUserAttributes } from 'aws-amplify/auth';
 import Button from '../components/ui/Button';
 import { quotes } from '../data/quotes';
 
@@ -25,8 +25,19 @@ const MotivationalQuote = ({ role }) => {
     );
 };
 
-const NewPasswordForm = ({ handleNewPasswordSubmit, newPassword, setNewPassword, loading }) => (
+const NewPasswordForm = ({ handleNewPasswordSubmit, newPassword, setNewPassword,name, setName, loading }) => (
     <form className="space-y-6" onSubmit={handleNewPasswordSubmit}>
+        <div>
+            <label className="block font-medium text-gray-700 mb-1">Your Full Name</label>
+            <input
+                type="text"
+                required
+                className="block w-full px-4 py-3 border-2 border-black rounded-md"
+                placeholder="Enter your full name"
+                value={name} // Bind to name state
+                onChange={(e) => setName(e.target.value)} // Update name state
+            />
+        </div>
         <div>
             <label className="block font-medium text-gray-700 mb-1">New Permanent Password</label>
             <input
@@ -81,6 +92,7 @@ const LoginPage = ({ role }) => {
     const [email, setEmail] = useState(location.state?.email || '');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [newName, setNewName] = useState('');
     
     const [error, setError] = useState('');
     const [infoMessage, setInfoMessage] = useState(location.state?.message || '');
@@ -114,6 +126,15 @@ const LoginPage = ({ role }) => {
         setError('');
         try {
             await confirmSignIn({ challengeResponse: newPassword });
+
+            if (newName) {
+                await updateUserAttributes({
+                    userAttributes: {
+                        name: newName,
+                    },
+                });
+            }
+
             await checkRoleAndRedirect();
         } catch (error) {
             setError(error.message || 'Failed to set new password.');
@@ -160,11 +181,13 @@ const LoginPage = ({ role }) => {
 
                         {requiresNewPassword ? (
                             <>
-                                <h2 className="text-4xl font-extrabold mb-8 text-center">Set New Password</h2>
+                                <h2 className="text-4xl font-extrabold mb-8 text-center">Set New Password & Name</h2>
                                 <NewPasswordForm 
                                     handleNewPasswordSubmit={handleNewPasswordSubmit}
                                     newPassword={newPassword}
                                     setNewPassword={setNewPassword}
+                                    name={newName}
+                                    setName={setNewName}
                                     loading={loading}
                                 />
                             </>

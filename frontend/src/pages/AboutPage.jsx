@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const AboutPage = () => {
     return (
         <div className="min-h-screen flex flex-col ">
-            <div className="absolute top-4 left-4 z-10 ">
+            <div className="fixed top-4 left-4 z-10 ">
                 <Link to="/">
                     <Button className="bg-white text-gray-800 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg shadow-md">
                         <ChevronLeft size={20} className="mr-2" /> Back to Home
@@ -37,19 +37,19 @@ const AboutPage = () => {
                         <SimpleFounderCard
                             name="Abdul Muqit"
                             // intro="Computer Science graduate with a focus on AI in education."
-                            image="https://placehold.co/180x180/FFFFFF/33A1E0?text=F1" // Larger placeholder image
+                            image="/abdul.png" // Larger placeholder image
                         />
                         {/* Founder 2 */}
                         <SimpleFounderCard
                             name="Mohammed Tanveer"
                             // intro="Experienced educator with a Master's in Curriculum Development."
-                            image="https://placehold.co/180x180/FFFFFF/33A1E0?text=F2" // Larger placeholder image
+                            image="/tanveer.png" // Larger placeholder image
                         />
                         {/* Founder 3 */}
                         <SimpleFounderCard
                             name="Mohammed Idris"
                             // intro="Passionate about UX design, bringing learning to life visually."
-                            image="https://placehold.co/180x180/FFFFFF/33A1E0?text=F3" // Larger placeholder image
+                            image="/idris.png" // Larger placeholder image
                         />
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const AboutPage = () => {
 // Helper component for Simple Founder Cards (no icons, concise info)
 const SimpleFounderCard = ({ name, intro, image }) => (
     <div className="bg-white text-gray-800 p-6 rounded-xl shadow-lg flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300">
-        <img src={image} alt={name} className="w-36 h-36 rounded-full mb-4 object-cover border-4 border-[#33A1E0]" /> {/* Larger image */}
+        <img src={image} alt={name} className="w-50 h-50 rounded-full mb-4 object-cover border-4 border-[#33A1E0]" /> {/* Larger image */}
         <h3 className="text-2xl font-bold mb-2">{name}</h3>
         <p className="text-gray-700 leading-relaxed text-md">{intro}</p> {/* Concise intro */}
     </div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signOut } from 'aws-amplify/auth';
+import { signOut, getCurrentUser, fetchUserAttributes } from 'aws-amplify/auth';
 import Button from './ui/Button';
 import { Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
 
@@ -8,6 +8,22 @@ const Navbar = ({ user }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const navigate = useNavigate();
+    const [name, setName] = useState('User');
+
+    useEffect(() => {
+        const fetchName = async () => {
+            try {
+                const currentUser = await getCurrentUser();
+                const attributes = await fetchUserAttributes(currentUser);
+                const fetchedName = attributes.name || 'User';
+                setName(fetchedName);
+            } catch (error) {
+                console.error("Error fetching user name for navbar:", error);
+                setName('User'); // Fallback if error occurs
+            }
+        };
+        fetchName();
+    })
 
     const handleSignOut = async () => {
         try {
@@ -20,7 +36,7 @@ const Navbar = ({ user }) => {
     };
     
     const dashboardPath = user?.role === 'Students' ? '/student-dashboard' : '/teacher-dashboard';
-    const userInitial = user?.username?.charAt(0).toUpperCase() || 'U';
+    const userInitial = name.charAt(0).toUpperCase() || 'U';
 
     return (
         <header className="bg-white sticky top-0 z-50 border-b-2 border-black">

@@ -8,7 +8,7 @@ const ForStudentsPage = () => {
     return (
         <div className="min-h-screen bg-[#33A1E0] text-white flex flex-col">
             {/* Back to Home Button */}
-            <div className="absolute top-4 left-4 z-10 ">
+            <div className="fixed top-4 left-4 z-10 ">
                 <Link to="/">
                     <Button className="bg-white text-gray-800 hover:bg-gray-100 flex items-center px-4 py-2 rounded-lg shadow-md">
                         <ChevronLeft size={20} className="mr-2" /> Back to Home
