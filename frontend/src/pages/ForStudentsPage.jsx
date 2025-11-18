@@ -55,7 +55,7 @@ const ForStudentsPage = ({ user }) => {
                 {user && user.role === 'Student' ? (
                     // If logged in as a student, show "Go to Dashboard"
                     <Link to="/student-dashboard">
-                        <Button className="bg-green-600 text-white hover:bg-green-700 flex items-center px-6 py-3 rounded-lg text-xl transition duration-300 ease-in-out shadow-lg">
+                        <Button className="bg-green-600 text-gray-800 hover:bg-green-700 flex items-center px-6 py-3 rounded-lg text-xl transition duration-300 ease-in-out shadow-lg">
                             Go to Your Student Dashboard
                         </Button>
                     </Link>
