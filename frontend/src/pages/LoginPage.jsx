@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { signIn, confirmSignIn, fetchAuthSession, signOut, updateUserAttributes } from 'aws-amplify/auth';
 import Button from '../components/ui/Button';
-import { quotes } from '../data/quotes'; // Assuming this path is correct
+import { quotes } from '../data/quotes'; 
 
-// --- Helper Components (No Changes Needed Here) ---
+
 
 const MotivationalQuote = ({ role }) => {
     const quoteList = role === 'Teacher' ? quotes.teacher : quotes.student;
